@@ -30,7 +30,6 @@ public class AccessRequest {
     @JoinColumn(name = "researcher_id")
     private User researcher;
 
-    @Size(min = 10)
     private String purpose;
 
     @Enumerated(EnumType.STRING)
