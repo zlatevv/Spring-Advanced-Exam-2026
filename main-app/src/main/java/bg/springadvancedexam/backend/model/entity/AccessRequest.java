@@ -2,7 +2,6 @@ package bg.springadvancedexam.backend.model.entity;
 
 import bg.springadvancedexam.backend.model.enums.RequestStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

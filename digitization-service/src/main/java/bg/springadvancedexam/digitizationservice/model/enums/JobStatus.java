@@ -1,4 +1,8 @@
 package bg.springadvancedexam.digitizationservice.model.enums;
 
-public class JobStatus {
+public enum JobStatus {
+    QUEUED,
+    SCANNING,
+    RESTORING,
+    COMPLETE
 }
