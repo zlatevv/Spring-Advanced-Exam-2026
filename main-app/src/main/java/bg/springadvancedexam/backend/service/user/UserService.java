@@ -1,4 +1,4 @@
-package bg.springadvancedexam.backend.service;
+package bg.springadvancedexam.backend.service.user;
 
 import org.springframework.stereotype.Service;
 

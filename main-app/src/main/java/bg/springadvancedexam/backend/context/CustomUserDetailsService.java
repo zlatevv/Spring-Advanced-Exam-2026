@@ -2,6 +2,7 @@ package bg.springadvancedexam.backend.context;
 
 import bg.springadvancedexam.backend.model.entity.User;
 import bg.springadvancedexam.backend.repository.UserRepository;
+import bg.springadvancedexam.backend.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,10 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("No user with email: " + email));
 
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getEmail())
-                .password(user.getPassword())
-                .authorities("ROLE_" + user.getRole().name())
-                .build();
+        return new CustomUserDetails(user);
     }
 }
