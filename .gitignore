@@ -25,4 +25,4 @@ replay_pid*
 
 frontend/node_modules/
 
-.env
+main-app/.env
