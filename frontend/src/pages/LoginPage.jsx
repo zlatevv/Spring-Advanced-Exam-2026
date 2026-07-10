@@ -48,7 +48,7 @@ export default function LoginPage() {
 
         <form onSubmit={onSubmit}>
           <div className="field">
-            <label htmlFor="email">Username or Email</label>
+            <label htmlFor="email">Email</label>
             <input id="email" name="email" type="email" required value={form.email} onChange={onChange} />
           </div>
           <div className="field">

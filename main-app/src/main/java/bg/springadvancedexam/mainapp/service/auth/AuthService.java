@@ -10,6 +10,7 @@ import bg.springadvancedexam.mainapp.model.entity.User;
 import bg.springadvancedexam.mainapp.repository.UserRepository;
 import bg.springadvancedexam.mainapp.security.CustomUserDetails;
 import bg.springadvancedexam.mainapp.security.JwtService;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,6 +29,7 @@ public class AuthService {
     private final JwtService jwtService;
 
     @Transactional
+    @CacheEvict(value = "allUsers", key = "'all'")
     public UserResponse register(RegisterRequest registerRequest) {
         String normalizedEmail = registerRequest.email().trim().toLowerCase();
 

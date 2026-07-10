@@ -26,3 +26,5 @@ replay_pid*
 frontend/node_modules/
 
 main-app/.env
+
+/.properties

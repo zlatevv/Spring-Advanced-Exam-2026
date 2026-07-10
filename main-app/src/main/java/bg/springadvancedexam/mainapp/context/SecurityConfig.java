@@ -27,7 +27,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,20 +34,25 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationProvider authenticationProvider) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // open
                         .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/manuscripts", "/api/manuscripts/**").permitAll()
-                        // authorized (role-specific) — check BEFORE the general authenticated rule
+
+                        .requestMatchers(HttpMethod.GET, "/api/users/me/profile").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/users/me/profile").authenticated()
+
+                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/users/*/role").hasRole("ADMIN")
+
                         .requestMatchers("/api/manage/**", "/api/manuscripts/*/digitize",
                                 "/api/manuscripts/*/digitization-status").hasAnyRole("CURATOR", "ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        // authenticated (any logged-in user)
+
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

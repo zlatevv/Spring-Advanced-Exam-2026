@@ -2,6 +2,7 @@ package bg.springadvancedexam.mainapp.mapper.user;
 
 import bg.springadvancedexam.mainapp.dto.auth.RegisterRequest;
 import bg.springadvancedexam.mainapp.dto.auth.UserResponse;
+import bg.springadvancedexam.mainapp.dto.user.ProfileResponse;
 import bg.springadvancedexam.mainapp.model.entity.User;
 import bg.springadvancedexam.mainapp.model.enums.Role;
 
@@ -26,5 +27,14 @@ public class UserMapper {
                 user.getEmail(),
                 user.getFullName(),
                 user.getRole());
+    }
+    public static ProfileResponse toProfileResponse(User user) {
+        return new ProfileResponse(
+                user.getFullName(),
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getRole(),
+                user.getInstitution()
+        );
     }
 }
