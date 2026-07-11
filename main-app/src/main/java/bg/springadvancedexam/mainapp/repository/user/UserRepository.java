@@ -1,6 +1,6 @@
-package bg.springadvancedexam.mainapp.repository;
+package bg.springadvancedexam.mainapp.repository.user;
 
-import bg.springadvancedexam.mainapp.model.entity.User;
+import bg.springadvancedexam.mainapp.model.entity.user.User;
 import bg.springadvancedexam.mainapp.model.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,5 +1,7 @@
-package bg.springadvancedexam.mainapp.model.entity;
+package bg.springadvancedexam.mainapp.model.entity.request;
 
+import bg.springadvancedexam.mainapp.model.entity.manuscript.Manuscript;
+import bg.springadvancedexam.mainapp.model.entity.user.User;
 import bg.springadvancedexam.mainapp.model.enums.RequestStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

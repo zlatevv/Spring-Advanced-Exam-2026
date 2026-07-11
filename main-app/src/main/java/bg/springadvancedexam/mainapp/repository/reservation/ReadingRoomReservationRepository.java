@@ -1,6 +1,6 @@
-package bg.springadvancedexam.mainapp.repository;
+package bg.springadvancedexam.mainapp.repository.reservation;
 
-import bg.springadvancedexam.mainapp.model.entity.ReadingRoomReservation;
+import bg.springadvancedexam.mainapp.model.entity.reservation.ReadingRoomReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package bg.springadvancedexam.mainapp.context;
 
-import bg.springadvancedexam.mainapp.model.entity.User;
-import bg.springadvancedexam.mainapp.repository.UserRepository;
+import bg.springadvancedexam.mainapp.model.entity.user.User;
+import bg.springadvancedexam.mainapp.repository.user.UserRepository;
 import bg.springadvancedexam.mainapp.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;

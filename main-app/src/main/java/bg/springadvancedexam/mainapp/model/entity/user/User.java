@@ -1,4 +1,4 @@
-package bg.springadvancedexam.mainapp.model.entity;
+package bg.springadvancedexam.mainapp.model.entity.user;
 
 import bg.springadvancedexam.mainapp.model.enums.Role;
 import jakarta.persistence.*;

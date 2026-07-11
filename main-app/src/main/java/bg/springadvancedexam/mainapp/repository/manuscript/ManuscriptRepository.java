@@ -1,6 +1,6 @@
-package bg.springadvancedexam.mainapp.repository;
+package bg.springadvancedexam.mainapp.repository.manuscript;
 
-import bg.springadvancedexam.mainapp.model.entity.Manuscript;
+import bg.springadvancedexam.mainapp.model.entity.manuscript.Manuscript;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

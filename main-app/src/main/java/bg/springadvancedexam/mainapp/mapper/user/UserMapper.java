@@ -3,7 +3,7 @@ package bg.springadvancedexam.mainapp.mapper.user;
 import bg.springadvancedexam.mainapp.dto.auth.RegisterRequest;
 import bg.springadvancedexam.mainapp.dto.auth.UserResponse;
 import bg.springadvancedexam.mainapp.dto.user.ProfileResponse;
-import bg.springadvancedexam.mainapp.model.entity.User;
+import bg.springadvancedexam.mainapp.model.entity.user.User;
 import bg.springadvancedexam.mainapp.model.enums.Role;
 
 import java.time.LocalDateTime;

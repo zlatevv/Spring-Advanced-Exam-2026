@@ -1,5 +1,6 @@
-package bg.springadvancedexam.mainapp.model.entity;
+package bg.springadvancedexam.mainapp.model.entity.reservation;
 
+import bg.springadvancedexam.mainapp.model.entity.request.AccessRequest;
 import bg.springadvancedexam.mainapp.model.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

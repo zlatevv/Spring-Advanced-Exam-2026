@@ -1,4 +1,4 @@
-package bg.springadvancedexam.mainapp.model.entity;
+package bg.springadvancedexam.mainapp.model.entity.manuscript;
 
 import bg.springadvancedexam.mainapp.model.enums.ConservationStatus;
 import bg.springadvancedexam.mainapp.model.enums.DigitizationStatus;

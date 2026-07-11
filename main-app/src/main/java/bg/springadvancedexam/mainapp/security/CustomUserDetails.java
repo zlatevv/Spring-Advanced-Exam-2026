@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import bg.springadvancedexam.mainapp.model.entity.User;
+import bg.springadvancedexam.mainapp.model.entity.user.User;
 import bg.springadvancedexam.mainapp.model.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
