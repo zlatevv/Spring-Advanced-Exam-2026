@@ -53,6 +53,9 @@ public class SecurityConfig {
                                 "/api/manuscripts/*/digitization-status").hasAnyRole("CURATOR", "ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
+                        .requestMatchers(HttpMethod.GET, "/api/manuscripts/*/notes").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/manuscripts", "/api/manuscripts/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

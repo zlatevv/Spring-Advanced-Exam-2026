@@ -5,8 +5,10 @@ import bg.springadvancedexam.mainapp.model.enums.DigitizationStatus;
 import bg.springadvancedexam.mainapp.model.enums.Era;
 import bg.springadvancedexam.mainapp.model.enums.Visibility;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -15,6 +17,8 @@ import java.util.UUID;
 @Table(name = "manuscripts")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Manuscript {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
