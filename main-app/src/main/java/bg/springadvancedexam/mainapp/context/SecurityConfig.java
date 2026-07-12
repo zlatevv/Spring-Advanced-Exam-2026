@@ -56,6 +56,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/manuscripts/*/notes").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/manuscripts", "/api/manuscripts/**").permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/api/reservations").hasAnyRole("CURATOR", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/reservations").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/reservations/mine").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/reservations/*").authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
