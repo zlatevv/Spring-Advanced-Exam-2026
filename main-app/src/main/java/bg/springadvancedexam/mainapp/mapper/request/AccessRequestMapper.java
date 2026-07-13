@@ -7,7 +7,7 @@ import bg.springadvancedexam.mainapp.model.entity.request.AccessRequest;
 import bg.springadvancedexam.mainapp.model.entity.user.User;
 import bg.springadvancedexam.mainapp.model.enums.RequestStatus;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AccessRequestMapper {
     public static AccessRequest toEntity(AccessRequestCreateRequest accessRequestCreateRequest,
@@ -16,7 +16,7 @@ public class AccessRequestMapper {
 
         accessRequest.setManuscript(manuscript);
         accessRequest.setResearcher(researcher);
-        accessRequest.setRequestedDate(LocalDate.now().atStartOfDay());
+        accessRequest.setRequestedDate(LocalDateTime.now());
         accessRequest.setRequestStatus(RequestStatus.PENDING);
         accessRequest.setPurpose(accessRequestCreateRequest.purpose());
 
