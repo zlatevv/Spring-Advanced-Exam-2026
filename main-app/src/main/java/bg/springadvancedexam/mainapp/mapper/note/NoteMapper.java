@@ -24,11 +24,11 @@ public class NoteMapper {
     }
 
     public static StudyNote toStudyNote(NoteAddRequest request, Manuscript manuscript, User author) {
-        StudyNote note = new StudyNote();
-        note.setContent(request.content());
-        note.setCreatedAt(LocalDateTime.now());
-        note.setManuscript(manuscript);
-        note.setAuthor(author);
-        return note;
+        return StudyNote.builder()
+                .content(request.content())
+                .createdAt(LocalDateTime.now())
+                .manuscript(manuscript)
+                .author(author)
+                .build();
     }
 }

@@ -9,12 +9,12 @@ import bg.springadvancedexam.mainapp.model.enums.ReservationStatus;
 public class ReservationMapper {
 
     public static Reservation toReservation(AccessRequest accessRequest, ReservationCreateRequest request) {
-        Reservation reservation = new Reservation();
-        reservation.setAccessRequest(accessRequest);
-        reservation.setSlotDate(request.slotDate());
-        reservation.setSlotTime(request.slotTime());
-        reservation.setStatus(ReservationStatus.CONFIRMED);
-        return reservation;
+        return Reservation.builder()
+                .accessRequest(accessRequest)
+                .slotDate(request.slotDate())
+                .slotTime(request.slotTime())
+                .status(ReservationStatus.CONFIRMED)
+                .build();
     }
 
     public static ReservationResponse toReservationResponse(Reservation reservation) {
