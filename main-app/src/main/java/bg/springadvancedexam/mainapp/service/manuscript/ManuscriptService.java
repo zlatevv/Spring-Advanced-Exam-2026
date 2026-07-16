@@ -1,14 +1,17 @@
 package bg.springadvancedexam.mainapp.service.manuscript;
 
+import bg.springadvancedexam.mainapp.client.DigitizationClient;
+import bg.springadvancedexam.mainapp.dto.digitzation.CreateJobRequest;
+import bg.springadvancedexam.mainapp.dto.digitzation.JobStatusResponse;
 import bg.springadvancedexam.mainapp.dto.manuscript.CreateManuscriptRequest;
 import bg.springadvancedexam.mainapp.dto.manuscript.ManuscriptResponse;
 import bg.springadvancedexam.mainapp.dto.manuscript.UpdateManuscriptRequest;
 import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptAccessDeniedException;
 import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptDoesNotExistException;
+import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptNotEligibleException;
 import bg.springadvancedexam.mainapp.mapper.manuscript.ManuscriptMapper;
 import bg.springadvancedexam.mainapp.model.entity.manuscript.Manuscript;
-import bg.springadvancedexam.mainapp.model.enums.Era;
-import bg.springadvancedexam.mainapp.model.enums.Visibility;
+import bg.springadvancedexam.mainapp.model.enums.*;
 import bg.springadvancedexam.mainapp.repository.manuscript.ManuscriptRepository;
 import org.springframework.cache.annotation.Cacheable;
 import jakarta.transaction.Transactional;
@@ -25,6 +28,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ManuscriptService {
     private final ManuscriptRepository manuscriptRepository;
+    private final DigitizationClient digitizationClient;
 
     @Transactional
     public ManuscriptResponse createManuscript(CreateManuscriptRequest createManuscriptRequest) {
@@ -61,8 +65,6 @@ public class ManuscriptService {
     }
 
     public Page<ManuscriptResponse> fetchManuscripts(String search, Era era, @PageableDefault(size = 12) Pageable pageable) {
-        // I use Page because say there are lots of manuscripts (e.g like 10 000) and I don't want to load all of them
-        // Using Page I only use a managable slice, instead of sending huge JSON payloads
         Page<Manuscript> manuscripts = manuscriptRepository.search(search, era, pageable);
         return manuscripts.map(ManuscriptMapper::toManuscriptResponse);
     }
@@ -77,5 +79,30 @@ public class ManuscriptService {
         }
 
         return ManuscriptMapper.toManuscriptResponse(manuscript);
+    }
+
+    @Transactional
+    @CacheEvict(value = "manuscripts", key = "#manuscriptId")
+    public ManuscriptResponse requestDigitization(UUID manuscriptId, Priority priority) {
+        Manuscript manuscript = manuscriptRepository.findById(manuscriptId)
+                .orElseThrow(() -> new ManuscriptDoesNotExistException("Manuscript not found"));
+
+        if (manuscript.getDigitizationStatus() != DigitizationStatus.NOT_STARTED) {
+            throw new ManuscriptNotEligibleException("Digitization already requested or completed.");
+        }
+
+        digitizationClient.createJob(new CreateJobRequest(manuscriptId, priority));
+
+        manuscript.setDigitizationStatus(DigitizationStatus.QUEUED);
+        Manuscript saved = manuscriptRepository.save(manuscript);
+
+        return ManuscriptMapper.toManuscriptResponse(saved);
+    }
+
+    public JobStatusResponse fetchDigitizationStatus(UUID manuscriptId) {
+        if (!manuscriptRepository.existsById(manuscriptId)) {
+            throw new ManuscriptDoesNotExistException("Manuscript not found");
+        }
+        return digitizationClient.getStatus(manuscriptId);
     }
 }

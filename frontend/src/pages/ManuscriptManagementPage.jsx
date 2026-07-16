@@ -76,7 +76,7 @@ export default function ManuscriptManagementPage() {
     try {
       await requestDigitization(m.id, 'MEDIUM');
       setManuscripts((prev) => prev.map((x) => (x.id === m.id ? { ...x, digitizationStatus: 'QUEUED' } : x)));
-      setSuccess(`Digitization requested for "${m.title}" (Feign call to microservice).`);
+      setSuccess(`Digitization requested for "${m.title}"`);
     } catch (err) {
       setError(extractErrorMessage(err));
     }

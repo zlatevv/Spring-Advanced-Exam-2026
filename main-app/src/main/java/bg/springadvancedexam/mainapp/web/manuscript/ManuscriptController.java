@@ -1,5 +1,7 @@
 package bg.springadvancedexam.mainapp.web.manuscript;
 
+import bg.springadvancedexam.mainapp.dto.digitzation.CreateJobRequest;
+import bg.springadvancedexam.mainapp.dto.digitzation.JobStatusResponse;
 import bg.springadvancedexam.mainapp.dto.manuscript.CreateManuscriptRequest;
 import bg.springadvancedexam.mainapp.dto.manuscript.ManuscriptResponse;
 import bg.springadvancedexam.mainapp.dto.manuscript.UpdateManuscriptRequest;
@@ -61,5 +63,17 @@ public class ManuscriptController {
             @PathVariable UUID id,
             @RequestBody VisibilityRequest request) {
         return ResponseEntity.ok(manuscriptService.setManuscriptVisibility(id, request.visibility()));
+    }
+
+    @PostMapping("/{id}/digitize")
+    public ResponseEntity<ManuscriptResponse> requestDigitization(
+            @PathVariable UUID id,
+            @Valid @RequestBody CreateJobRequest request) {
+        return ResponseEntity.ok(manuscriptService.requestDigitization(id, request.priority()));
+    }
+
+    @GetMapping("/{id}/digitization-status")
+    public ResponseEntity<JobStatusResponse> getDigitizationStatus(@PathVariable UUID id) {
+        return ResponseEntity.ok(manuscriptService.fetchDigitizationStatus(id));
     }
 }
