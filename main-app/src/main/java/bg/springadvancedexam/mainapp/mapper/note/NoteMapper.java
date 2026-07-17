@@ -16,6 +16,7 @@ public class NoteMapper {
         LocalDateTime createdAt = note.getCreatedAt();
 
         return new NoteResponse(
+                note.getId(),
                 manuscriptTitle,
                 author,
                 content,
