@@ -2,6 +2,7 @@ package bg.springadvancedexam.mainapp.service.request;
 
 import bg.springadvancedexam.mainapp.dto.request.AccessRequestCreateRequest;
 import bg.springadvancedexam.mainapp.dto.request.AccessRequestResponse;
+import bg.springadvancedexam.mainapp.event.AccessRequestApprovedEvent;
 import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptDoesNotExistException;
 import bg.springadvancedexam.mainapp.exception.request.InvalidRequestDecisionException;
 import bg.springadvancedexam.mainapp.exception.request.RequestAlreadyDecidedException;
@@ -17,6 +18,7 @@ import bg.springadvancedexam.mainapp.repository.request.AccessRequestRepository;
 import bg.springadvancedexam.mainapp.repository.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +31,7 @@ public class AccessRequestService {
     private final AccessRequestRepository accessRequestRepository;
     private final ManuscriptRepository manuscriptRepository;
     private final UserRepository userRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public AccessRequestResponse submitAccessRequest(AccessRequestCreateRequest accessRequestCreateRequest,
@@ -86,6 +89,14 @@ public class AccessRequestService {
         accessRequest.setDecidedBy(decider);
 
         AccessRequest saved = accessRequestRepository.save(accessRequest);
+
+        if (decision == RequestStatus.APPROVED) {
+            eventPublisher.publishEvent(new AccessRequestApprovedEvent(
+                    saved.getId(),
+                    saved.getResearcher().getId(),
+                    saved.getManuscript().getId()
+            ));
+        }
 
         return AccessRequestMapper.toResponse(saved);
     }
