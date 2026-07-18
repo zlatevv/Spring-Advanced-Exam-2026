@@ -6,6 +6,7 @@ import bg.springadvancedexam.digitizationservice.model.enums.Priority;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
 public record DigitizationJobResponse(
         UUID manuscriptId,
         JobStatus status,

@@ -18,10 +18,9 @@ public class DigitizationJobService {
     private final DigitizationJobRepository digitizationJobRepository;
 
     @Transactional
-    public DigitizationJobResponse createJob(UUID manuscriptId, Priority priority) {
+    public void createJob(UUID manuscriptId, Priority priority) {
         DigitizationJob job = DigitizationMapper.toDigitizationJob(manuscriptId, priority);
-        DigitizationJob saved = digitizationJobRepository.save(job);
-        return DigitizationMapper.toDigitizationJobResponse(saved);
+        digitizationJobRepository.save(job);
     }
 
     public DigitizationJobResponse fetchStatus(UUID manuscriptId) {
