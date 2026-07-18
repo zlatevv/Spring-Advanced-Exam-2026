@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: raremanuscripts_db
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  main-app:
+    build: ./main-app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/raremanuscripts_db
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
+      DIGITIZATION_SERVICE_URL: http://digitization-service:8081
+    ports:
+      - "8080:8080"
+
+  digitization-service:
+    build: ./digitization-service
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/digitization_db
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8081:8081"
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - main-app
+    ports:
+      - "80:80"
+
+volumes:
+  mysql-data:

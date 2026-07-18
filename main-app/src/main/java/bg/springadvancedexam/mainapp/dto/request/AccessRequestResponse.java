@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record AccessRequestResponse(
+        UUID idm,
         UUID manuscriptId,
         String manuscriptTitle,
         String researcherName,

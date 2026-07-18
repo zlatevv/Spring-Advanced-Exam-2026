@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS raremanuscripts_db;
+CREATE DATABASE IF NOT EXISTS digitization_db;

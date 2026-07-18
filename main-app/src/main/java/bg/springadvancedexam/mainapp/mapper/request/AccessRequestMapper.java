@@ -25,6 +25,7 @@ public class AccessRequestMapper {
 
     public static AccessRequestResponse toResponse(AccessRequest accessRequest) {
         return new AccessRequestResponse(
+                accessRequest.getId(),
                 accessRequest.getManuscript().getId(),
                 accessRequest.getManuscript().getTitle(),
                 accessRequest.getResearcher().getFullName(),
