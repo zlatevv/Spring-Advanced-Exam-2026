@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.UUID;
 
 public record ReservationResponse(
+        UUID id,
         UUID manuscriptId,
         String manuscriptTitle,
         String researcherName,

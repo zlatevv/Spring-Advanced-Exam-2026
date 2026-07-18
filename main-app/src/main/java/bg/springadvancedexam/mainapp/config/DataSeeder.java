@@ -90,7 +90,7 @@ public class DataSeeder implements CommandLineRunner {
                 .description("Correspondence detailing a scientific expedition, partially water-damaged.")
                 .conservationStatus(ConservationStatus.UNDER_TREATMENT)
                 .visibility(Visibility.RESTRICTED)
-                .digitizationStatus(DigitizationStatus.QUEUED)
+                .digitizationStatus(DigitizationStatus.NOT_STARTED)
                 .createdAt(LocalDateTime.now())
                 .build());
 

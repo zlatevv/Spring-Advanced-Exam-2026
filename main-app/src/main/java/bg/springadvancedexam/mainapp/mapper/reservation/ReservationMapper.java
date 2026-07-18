@@ -19,6 +19,7 @@ public class ReservationMapper {
 
     public static ReservationResponse toReservationResponse(Reservation reservation) {
         return new ReservationResponse(
+                reservation.getId(),
                 reservation.getAccessRequest().getManuscript().getId(),
                 reservation.getAccessRequest().getManuscript().getTitle(),
                 reservation.getAccessRequest().getResearcher().getFullName(),

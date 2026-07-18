@@ -26,7 +26,6 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // --- Built-in exception: Bean Validation failures (@Valid on request DTOs) ---
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
         List<String> messages = ex.getBindingResult().getFieldErrors().stream()
@@ -36,14 +35,12 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse(String.join("; ", messages)));
     }
 
-    // --- Built-in exception: Spring Security login failure ---
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleBadCredentials(BadCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new ErrorResponse("Invalid email or password."));
     }
 
-    // --- Custom exceptions: "not found" family → 404 ---
     @ExceptionHandler({
             UserNotFoundException.class,
             ManuscriptDoesNotExistException.class,
@@ -55,7 +52,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(ex.getMessage()));
     }
 
-    // --- Custom exceptions: "access denied" family → 403 ---
     @ExceptionHandler({
             NoteAccessDeniedException.class,
             ReservationAccessException.class,
@@ -65,7 +61,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse(ex.getMessage()));
     }
 
-    // --- Custom exceptions: "conflict with current state" family → 409 ---
     @ExceptionHandler({
             UserAlreadyExistsException.class,
             EmailExistsException.class,
@@ -76,13 +71,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(ex.getMessage()));
     }
 
-    // --- Custom exceptions: malformed business input → 400 ---
     @ExceptionHandler(InvalidRequestDecisionException.class)
     public ResponseEntity<ErrorResponse> handleInvalidDecision(InvalidRequestDecisionException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ex.getMessage()));
     }
 
-    // --- Fallback: anything unexpected → 500, never leak the raw exception ---
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpected(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

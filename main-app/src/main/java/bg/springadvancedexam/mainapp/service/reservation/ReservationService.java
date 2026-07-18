@@ -69,6 +69,10 @@ public class ReservationService {
 
         reservation.setStatus(ReservationStatus.CANCELLED);
         reservationRepository.save(reservation);
+
+        AccessRequest accessRequest = reservation.getAccessRequest();
+        accessRequest.setRequestStatus(RequestStatus.WITHDRAWN);
+        accessRequestRepository.save(accessRequest);
     }
 
     public List<ReservationResponse> fetchReservations() {
