@@ -1,4 +1,7 @@
 services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
   mysql:
     image: mysql:8.0
     restart: unless-stopped
@@ -20,6 +23,8 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+      redis:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/raremanuscripts_db
       DB_USERNAME: root
@@ -27,6 +32,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
       DIGITIZATION_SERVICE_URL: http://digitization-service:8081
+      REDIS_HOST: redis
     ports:
       - "8080:8080"
 
