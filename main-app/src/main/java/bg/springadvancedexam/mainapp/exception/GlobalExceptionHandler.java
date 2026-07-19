@@ -13,6 +13,8 @@ import bg.springadvancedexam.mainapp.exception.user.EmailExistsException;
 import bg.springadvancedexam.mainapp.exception.user.LastAdminException;
 import bg.springadvancedexam.mainapp.exception.user.UserAlreadyExistsException;
 import bg.springadvancedexam.mainapp.exception.user.UserNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,6 +27,7 @@ import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
@@ -78,6 +81,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpected(Exception ex) {
+        log.error("Unexpected error", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse("An unexpected error occurred."));
     }

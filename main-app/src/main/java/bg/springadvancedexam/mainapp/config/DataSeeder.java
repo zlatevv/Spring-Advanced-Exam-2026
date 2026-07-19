@@ -7,6 +7,7 @@ import bg.springadvancedexam.mainapp.repository.manuscript.ManuscriptRepository;
 import bg.springadvancedexam.mainapp.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,9 +24,8 @@ public class DataSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final ManuscriptRepository manuscriptRepository;
     private final PasswordEncoder passwordEncoder;
-
     @Override
-    public void run(String... args) {
+    public void run(String @NonNull ... args) {
         if (userRepository.count() > 0) {
             log.info("Users already exist, skipping data seeding.");
             return;

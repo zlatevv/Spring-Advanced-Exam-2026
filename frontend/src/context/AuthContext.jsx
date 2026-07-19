@@ -37,9 +37,13 @@ export function AuthProvider({ children }) {
         [user]
     );
 
+    const setUserFromToken = useCallback((userData) => {
+        setUser(userData);
+    }, []);
+
     return (
         <AuthContext.Provider
-            value={{ user, initializing, login, register, logout, hasRole, isAuthenticated: !!user }}
+            value={{ user, initializing, login, register, logout, hasRole, isAuthenticated: !!user, setUserFromToken}}
         >
             {children}
         </AuthContext.Provider>

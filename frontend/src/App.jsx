@@ -16,6 +16,7 @@ import ManuscriptManagementPage from './pages/ManuscriptManagementPage';
 import ReservationsOverviewPage from './pages/ReservationsOverviewPage';
 import DigitizationDashboardPage from './pages/DigitizationDashboardPage';
 import AdminUsersPage from './pages/AdminUsersPage';
+import OAuthCallbackPage from './pages/OAuthCallbackPage';
 
 function Layout({ children }) {
   return (
@@ -31,6 +32,7 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+        <Route path="/oauth-callback" element={<OAuthCallbackPage />} />
 
       <Route path="/" element={<Layout><HomePage /></Layout>} />
       <Route path="/about" element={<Layout><AboutPage /></Layout>} />

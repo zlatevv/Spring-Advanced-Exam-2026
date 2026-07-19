@@ -5,6 +5,7 @@ import bg.springadvancedexam.mainapp.dto.auth.LoginResponse;
 import bg.springadvancedexam.mainapp.dto.auth.RegisterRequest;
 import bg.springadvancedexam.mainapp.dto.auth.UserResponse;
 import bg.springadvancedexam.mainapp.exception.user.UserAlreadyExistsException;
+import bg.springadvancedexam.mainapp.exception.user.UserNotFoundException;
 import bg.springadvancedexam.mainapp.mapper.user.UserMapper;
 import bg.springadvancedexam.mainapp.model.entity.user.User;
 import bg.springadvancedexam.mainapp.repository.user.UserRepository;
@@ -19,6 +20,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -67,5 +70,11 @@ public class AuthService {
         );
 
         return new LoginResponse(token, userResponse);
+    }
+
+    public UserResponse getCurrentUser(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User was not found!"));
+        return UserMapper.toUserResponse(user);
     }
 }

@@ -64,6 +64,8 @@ export default function LoginPage() {
         <p style={{ textAlign: 'center', marginTop: '1.4rem', color: 'var(--muted)', fontSize: '0.9rem' }}>
           For <Link to="/register" style={{ color: 'var(--teal-deep)', fontWeight: 600 }}>Request an account</Link>
         </p>
+
+        <a href="http://localhost:8080/oauth2/authorization/google">Sign in with Google</a>
       </ParchmentPanel>
     </div>
   );
