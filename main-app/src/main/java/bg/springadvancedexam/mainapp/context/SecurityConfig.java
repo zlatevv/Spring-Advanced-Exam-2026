@@ -2,6 +2,7 @@ package bg.springadvancedexam.mainapp.context;
 
 import bg.springadvancedexam.mainapp.security.JwtAuthFilter;
 import bg.springadvancedexam.mainapp.security.OAuth2LoginSuccessHandler;
+import bg.springadvancedexam.mainapp.security.RateLimitingFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
+    private final RateLimitingFilter rateLimitingFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -84,6 +86,7 @@ public class SecurityConfig {
                 )
                 .authenticationProvider(authenticationProvider)
                 .oauth2Login(oauth2 -> oauth2.successHandler(oAuth2LoginSuccessHandler))
+                .addFilterBefore(rateLimitingFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
