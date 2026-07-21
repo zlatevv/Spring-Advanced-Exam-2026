@@ -2,7 +2,6 @@ package bg.springadvancedexam.mainapp.client;
 
 import bg.springadvancedexam.mainapp.dto.digitzation.CreateJobRequest;
 import bg.springadvancedexam.mainapp.dto.digitzation.JobStatusResponse;
-import bg.springadvancedexam.mainapp.model.enums.JobStatus;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
