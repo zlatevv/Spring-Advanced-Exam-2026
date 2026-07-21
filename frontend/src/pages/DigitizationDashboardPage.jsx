@@ -2,10 +2,6 @@ import { useEffect, useState } from 'react';
 import { fetchManuscripts, fetchDigitizationStatus } from '../api/manuscriptApi';
 import { StatusBadge, Loading, EmptyState, ErrorBanner, extractErrorMessage } from '../components/Feedback';
 
-// Displays the status of each manuscript's digitization job, as reported by
-// the separate Digitization & Conservation REST microservice (fetched by the
-// Main application over Feign Client and exposed at
-// GET /api/manuscripts/{id}/digitization-status).
 export default function DigitizationDashboardPage() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);

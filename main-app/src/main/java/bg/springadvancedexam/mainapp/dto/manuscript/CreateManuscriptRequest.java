@@ -11,9 +11,9 @@ public record CreateManuscriptRequest(
         String title,
         @NotNull(message = "Description is required")
         String description,
-        String author, // author can be unknown therefore nullable, so no need of NotNull
+        String author,
         Era era,
-        String originRegion, // same goes for origin region
+        String originRegion,
         String status,
         ConservationStatus conservationStatus
 ) {

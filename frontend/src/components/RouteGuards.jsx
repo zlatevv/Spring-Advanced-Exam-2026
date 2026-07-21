@@ -1,7 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-// Wrap any page that requires a logged-in user of any role.
 export function RequireAuth({ children }) {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
@@ -11,7 +10,6 @@ export function RequireAuth({ children }) {
   return children;
 }
 
-// Wrap any page that requires one of a specific set of roles.
 export function RequireRole({ roles, children }) {
   const { isAuthenticated, hasRole } = useAuth();
   const location = useLocation();

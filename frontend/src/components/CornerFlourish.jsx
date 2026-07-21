@@ -1,6 +1,3 @@
-// A single reusable ornament, rotated/mirrored to mark all four corners of a
-// parchment panel. This recurring motif is the app's visual signature, echoing
-// the manuscript-margin decorations of illuminated texts.
 function Ornament() {
   return (
     <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
