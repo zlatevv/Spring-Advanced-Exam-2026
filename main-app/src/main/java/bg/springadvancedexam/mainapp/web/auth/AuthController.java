@@ -4,6 +4,8 @@ import bg.springadvancedexam.mainapp.dto.auth.LoginRequest;
 import bg.springadvancedexam.mainapp.dto.auth.LoginResponse;
 import bg.springadvancedexam.mainapp.dto.auth.RegisterRequest;
 import bg.springadvancedexam.mainapp.dto.auth.UserResponse;
+import bg.springadvancedexam.mainapp.dto.email.ForgotPasswordRequest;
+import bg.springadvancedexam.mainapp.dto.email.ResetPasswordRequest;
 import bg.springadvancedexam.mainapp.security.CustomUserDetails;
 import bg.springadvancedexam.mainapp.service.auth.AuthService;
 import jakarta.validation.Valid;
@@ -33,5 +35,17 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser(@AuthenticationPrincipal CustomUserDetails principal) {
         return ResponseEntity.ok(authService.getCurrentUser(principal.getUserId()));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Void> forgotPassword(@RequestBody @Valid ForgotPasswordRequest request) {
+        authService.requestPasswordReset(request.email());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody @Valid ResetPasswordRequest request) {
+        authService.resetPassword(request.token(), request.newPassword());
+        return ResponseEntity.ok().build();
     }
 }

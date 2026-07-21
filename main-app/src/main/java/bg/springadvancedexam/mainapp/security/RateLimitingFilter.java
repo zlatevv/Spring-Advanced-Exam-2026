@@ -28,7 +28,9 @@ public class RateLimitingFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String path = request.getRequestURI();
-        boolean isRateLimited = path.equals("/api/auth/login") || path.equals("/api/auth/register");
+        boolean isRateLimited = path.equals("/api/auth/login")
+                || path.equals("/api/auth/register")
+                || path.equals("/api/auth/forgot-password");
 
         if (isRateLimited) {
             String key = "ratelimit:" + path + ":" + request.getRemoteAddr();

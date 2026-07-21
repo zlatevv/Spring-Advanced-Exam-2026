@@ -1,9 +1,11 @@
 package bg.springadvancedexam.mainapp.service.auth;
 
+import bg.springadvancedexam.mainapp.client.EmailClient;
 import bg.springadvancedexam.mainapp.dto.auth.LoginRequest;
 import bg.springadvancedexam.mainapp.dto.auth.LoginResponse;
 import bg.springadvancedexam.mainapp.dto.auth.RegisterRequest;
 import bg.springadvancedexam.mainapp.dto.auth.UserResponse;
+import bg.springadvancedexam.mainapp.dto.email.EmailRequest;
 import bg.springadvancedexam.mainapp.exception.user.UserAlreadyExistsException;
 import bg.springadvancedexam.mainapp.exception.user.UserNotFoundException;
 import bg.springadvancedexam.mainapp.mapper.user.UserMapper;
@@ -20,6 +22,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.UUID;
 
@@ -30,6 +33,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final EmailClient emailClient;
 
     @Transactional
     @CacheEvict(value = "allUsers", key = "'all'")
@@ -76,5 +80,21 @@ public class AuthService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User was not found!"));
         return UserMapper.toUserResponse(user);
+    }
+
+    public void requestPasswordReset(String email) {
+        userRepository.findByEmail(email).ifPresent(user -> {
+            String resetToken = jwtService.generatePasswordResetToken(email);
+            emailClient.sendResetEmail(new EmailRequest(email, resetToken));
+        });
+    }
+
+    @Transactional
+    public void resetPassword(String token, String newPassword) {
+        String email = jwtService.extractResetEmail(token);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 }

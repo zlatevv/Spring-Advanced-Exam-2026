@@ -17,6 +17,8 @@ import ReservationsOverviewPage from './pages/ReservationsOverviewPage';
 import DigitizationDashboardPage from './pages/DigitizationDashboardPage';
 import AdminUsersPage from './pages/AdminUsersPage';
 import OAuthCallbackPage from './pages/OAuthCallbackPage';
+import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 
 function Layout({ children }) {
   return (
@@ -63,6 +65,10 @@ export default function App() {
         path="/admin/users"
         element={<Layout><RequireRole roles={['ADMIN']}><AdminUsersPage /></RequireRole></Layout>}
       />
+
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
     </Routes>
   );
 }

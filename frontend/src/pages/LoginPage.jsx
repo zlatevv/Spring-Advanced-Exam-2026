@@ -59,6 +59,19 @@ export default function LoginPage() {
           <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.4rem' }} disabled={submitting}>
             {submitting ? 'Signing In…' : 'Sign In'}
           </button>
+
+          <div style={{ textAlign: 'right', marginTop: '0.5rem', marginBottom: '1rem' }}>
+            <Link
+                to="/forgot-password"
+                style={{
+                  color: 'var(--teal-deep)',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                }}
+            >
+              Forgot Password?
+            </Link>
+          </div>
         </form>
 
         <p style={{ textAlign: 'center', marginTop: '1.4rem', color: 'var(--muted)', fontSize: '0.9rem' }}>

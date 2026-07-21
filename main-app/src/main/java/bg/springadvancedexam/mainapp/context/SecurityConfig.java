@@ -82,6 +82,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/access-requests").hasAnyRole("CURATOR", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/access-requests/*/decision").hasAnyRole("CURATOR", "ADMIN")
 
+                        .requestMatchers(HttpMethod.POST, "/api/auth/forgot-password", "/api/auth/reset-password").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

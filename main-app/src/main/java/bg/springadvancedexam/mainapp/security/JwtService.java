@@ -1,5 +1,6 @@
 package bg.springadvancedexam.mainapp.security;
 
+import bg.springadvancedexam.mainapp.exception.security.InvalidResetTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -22,10 +23,9 @@ public class JwtService {
 
     public String generateToken(String email, String role) {
         return Jwts.builder()
-                .setSubject(email)
-                .claim("role", role)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
+                .subject(email)
+                .claim("role", role).issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expirationMs))
                 .signWith(getSigningKey())
                 .compact();
     }
@@ -53,5 +53,23 @@ public class JwtService {
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public String generatePasswordResetToken(String email) {
+        return Jwts.builder()
+                .subject(email)
+                .claim("purpose", "password-reset")
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 15 * 60 * 1000))
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    public String extractResetEmail(String token) {
+        Claims claims = parseClaims(token);
+        if (!"password-reset".equals(claims.get("purpose"))) {
+            throw new InvalidResetTokenException("Invalid reset token.");
+        }
+        return claims.getSubject();
     }
 }
