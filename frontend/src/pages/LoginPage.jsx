@@ -78,7 +78,7 @@ export default function LoginPage() {
           For <Link to="/register" style={{ color: 'var(--teal-deep)', fontWeight: 600 }}>Request an account</Link>
         </p>
 
-        <a href="http://localhost:8080/oauth2/authorization/google">Sign in with Google</a>
+        <a href="https://raramanuscripts.netlify.app//oauth2/authorization/google">Sign in with Google</a>
       </ParchmentPanel>
     </div>
   );
