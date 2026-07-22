@@ -8,6 +8,7 @@ import bg.springadvancedexam.mainapp.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@Profile("!prod")
 @RequiredArgsConstructor
 @Slf4j
 public class DataSeeder implements CommandLineRunner {
@@ -24,6 +24,16 @@ public class DataSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final ManuscriptRepository manuscriptRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Value("${seed.admin.name}")
+    private String adminName;
+
+    @Value("${seed.admin.email}")
+    private String adminEmail;
+
+    @Value("${seed.admin.password}")
+    private String adminPassword;
+
     @Override
     public void run(String @NonNull ... args) {
         if (userRepository.count() > 0) {
@@ -32,31 +42,14 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         User admin = User.builder()
-                .fullName("System Admin")
-                .email("admin@raremanuscripts.local")
-                .password(passwordEncoder.encode("Admin123!"))
+                .fullName(adminName)
+                .email(adminEmail)
+                .password(passwordEncoder.encode(adminPassword))
                 .role(Role.ADMIN)
                 .createdAt(LocalDateTime.now())
                 .build();
+
         userRepository.save(admin);
-
-        User curator = User.builder()
-                .fullName("Eleanor Curator")
-                .email("curator@raremanuscripts.local")
-                .password(passwordEncoder.encode("Curator123!"))
-                .role(Role.CURATOR)
-                .createdAt(LocalDateTime.now())
-                .build();
-        userRepository.save(curator);
-
-        User researcher = User.builder()
-                .fullName("Rhea Researcher")
-                .email("researcher@raremanuscripts.local")
-                .password(passwordEncoder.encode("Research123!"))
-                .role(Role.RESEARCHER)
-                .createdAt(LocalDateTime.now())
-                .build();
-        userRepository.save(researcher);
 
         manuscriptRepository.save(Manuscript.builder()
                 .title("The Voynich Fragment")
@@ -94,6 +87,6 @@ public class DataSeeder implements CommandLineRunner {
                 .createdAt(LocalDateTime.now())
                 .build());
 
-        log.info("Seeded 3 users (admin/curator/researcher) and 3 manuscripts.");
+        log.info("Seeded an admin and 3 manuscripts.");
     }
 }
