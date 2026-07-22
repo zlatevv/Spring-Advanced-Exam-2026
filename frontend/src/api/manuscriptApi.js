@@ -19,3 +19,6 @@ export const requestDigitization = (id, priority) =>
 
 export const fetchDigitizationStatus = (id) =>
   apiClient.get(`/manuscripts/${id}/digitization-status`).then((r) => r.data);
+
+export const fetchManuscriptSummary = (id) =>
+    apiClient.get(`/manuscripts/${id}/summary`).then((r) => r.data);

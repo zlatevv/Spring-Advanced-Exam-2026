@@ -2,10 +2,7 @@ package bg.springadvancedexam.mainapp.web.manuscript;
 
 import bg.springadvancedexam.mainapp.dto.digitzation.CreateJobRequest;
 import bg.springadvancedexam.mainapp.dto.digitzation.JobStatusResponse;
-import bg.springadvancedexam.mainapp.dto.manuscript.CreateManuscriptRequest;
-import bg.springadvancedexam.mainapp.dto.manuscript.ManuscriptResponse;
-import bg.springadvancedexam.mainapp.dto.manuscript.UpdateManuscriptRequest;
-import bg.springadvancedexam.mainapp.dto.manuscript.VisibilityRequest;
+import bg.springadvancedexam.mainapp.dto.manuscript.*;
 import bg.springadvancedexam.mainapp.model.enums.Era;
 import bg.springadvancedexam.mainapp.security.CustomUserDetails;
 import bg.springadvancedexam.mainapp.service.manuscript.ManuscriptService;
@@ -75,5 +72,10 @@ public class ManuscriptController {
     @GetMapping("/{id}/digitization-status")
     public ResponseEntity<JobStatusResponse> getDigitizationStatus(@PathVariable UUID id) {
         return ResponseEntity.ok(manuscriptService.fetchDigitizationStatus(id));
+    }
+
+    @GetMapping("/{id}/summary")
+    public ResponseEntity<SummaryResponse> getManuscriptSummary(@PathVariable UUID id) {
+        return ResponseEntity.ok(manuscriptService.generateSummary(id));
     }
 }

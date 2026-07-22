@@ -5,6 +5,7 @@ import bg.springadvancedexam.mainapp.dto.digitzation.CreateJobRequest;
 import bg.springadvancedexam.mainapp.dto.digitzation.JobStatusResponse;
 import bg.springadvancedexam.mainapp.dto.manuscript.CreateManuscriptRequest;
 import bg.springadvancedexam.mainapp.dto.manuscript.ManuscriptResponse;
+import bg.springadvancedexam.mainapp.dto.manuscript.SummaryResponse;
 import bg.springadvancedexam.mainapp.dto.manuscript.UpdateManuscriptRequest;
 import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptAccessDeniedException;
 import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptDoesNotExistException;
@@ -13,6 +14,7 @@ import bg.springadvancedexam.mainapp.mapper.manuscript.ManuscriptMapper;
 import bg.springadvancedexam.mainapp.model.entity.manuscript.Manuscript;
 import bg.springadvancedexam.mainapp.model.enums.*;
 import bg.springadvancedexam.mainapp.repository.manuscript.ManuscriptRepository;
+import bg.springadvancedexam.mainapp.service.ai.ManuscriptSummaryService;
 import org.springframework.cache.annotation.Cacheable;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ import java.util.UUID;
 public class ManuscriptService {
     private final ManuscriptRepository manuscriptRepository;
     private final DigitizationClient digitizationClient;
+    private final ManuscriptSummaryService manuscriptSummaryService;
 
     @Transactional
     public ManuscriptResponse createManuscript(CreateManuscriptRequest createManuscriptRequest) {
@@ -104,5 +107,12 @@ public class ManuscriptService {
             throw new ManuscriptDoesNotExistException("Manuscript not found");
         }
         return digitizationClient.getStatus(manuscriptId);
+    }
+
+    @Cacheable(value = "manuscriptSummaries", key = "#p0")
+    public SummaryResponse generateSummary(UUID manuscriptId) {
+        Manuscript manuscript = manuscriptRepository.findById(manuscriptId)
+                .orElseThrow(() -> new ManuscriptDoesNotExistException("Manuscript not found"));
+        return new SummaryResponse(manuscriptSummaryService.generateSummary(manuscript));
     }
 }

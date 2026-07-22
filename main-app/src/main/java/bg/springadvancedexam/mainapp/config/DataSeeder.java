@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@Profile("!prod")
 @RequiredArgsConstructor
 @Slf4j
 public class DataSeeder implements CommandLineRunner {

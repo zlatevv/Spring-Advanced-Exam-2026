@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchManuscript } from '../api/manuscriptApi';
+import {fetchManuscript, fetchManuscriptSummary} from '../api/manuscriptApi';
 import { submitAccessRequest } from '../api/requestApi';
 import { fetchNotes, addNote, deleteNote } from '../api/noteApi';
 import { useAuth } from '../context/AuthContext';
@@ -17,6 +17,8 @@ export default function ManuscriptDetailPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [summary, setSummary] = useState(null);
+  const [summaryLoading, setSummaryLoading] = useState(false);
 
   const load = () => {
     setLoading(true);
@@ -66,6 +68,18 @@ export default function ManuscriptDetailPage() {
       setError(extractErrorMessage(err));
     }
   };
+  const onGenerateSummary = async () => {
+    setSummaryLoading(true);
+    setError('');
+    try {
+      const result = await fetchManuscriptSummary(id);
+      setSummary(result.summary);
+    } catch (err) {
+      setError(extractErrorMessage(err));
+    } finally {
+      setSummaryLoading(false);
+    }
+  };
 
   if (loading) return <div className="page"><Loading /></div>;
   if (!manuscript) return <div className="page"><ErrorBanner message={error || 'Manuscript not found.'} /></div>;
@@ -86,6 +100,19 @@ export default function ManuscriptDetailPage() {
         <StatusBadge status={manuscript.digitizationStatus} />
       </div>
       <p style={{ color: 'var(--parchment)', opacity: 0.85, lineHeight: 1.6 }}>{manuscript.description}</p>
+      <section style={{ marginTop: '2rem' }}>
+        {!summary && (
+            <button className="btn btn-ghost" onClick={onGenerateSummary} disabled={summaryLoading}>
+              {summaryLoading ? 'Generating…' : '✦ Generate AI Research Summary'}
+            </button>
+        )}
+        {summary && (
+            <div style={{ background: 'var(--parchment-panel)', borderRadius: 4, padding: '1.4rem', marginTop: '1rem' }} className="on-parchment">
+              <h3 style={{ fontSize: '1rem' }}>AI Research Summary</h3>
+              <p style={{ margin: 0, lineHeight: 1.6 }}>{summary}</p>
+            </div>
+        )}
+      </section>
 
       {user && hasRole('RESEARCHER') && (
         <section style={{ marginTop: '2.4rem', background: 'var(--parchment-panel)', borderRadius: 4, padding: '1.6rem' }} className="on-parchment">

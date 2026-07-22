@@ -13,6 +13,7 @@ import bg.springadvancedexam.mainapp.exception.user.EmailExistsException;
 import bg.springadvancedexam.mainapp.exception.user.LastAdminException;
 import bg.springadvancedexam.mainapp.exception.user.UserAlreadyExistsException;
 import bg.springadvancedexam.mainapp.exception.user.UserNotFoundException;
+import com.openai.errors.RateLimitException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -84,5 +87,14 @@ public class GlobalExceptionHandler {
         log.error("Unexpected error", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse("An unexpected error occurred."));
+    }
+
+    @ExceptionHandler(RateLimitException.class)
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public Map<String, String> handleRateLimit(RateLimitException e) {
+        return Map.of(
+                "error",
+                "OpenAI quota exceeded. Check billing."
+        );
     }
 }
