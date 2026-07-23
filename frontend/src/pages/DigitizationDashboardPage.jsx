@@ -37,21 +37,23 @@ export default function DigitizationDashboardPage() {
       ) : rows.length === 0 ? (
         <EmptyState title="No digitization jobs queued" hint="Request digitization from the Manuscript Management page." />
       ) : (
-        <table className="data-table">
-          <thead>
-            <tr><th>Manuscript</th><th>Priority</th><th>Job Status</th><th>Technician</th></tr>
-          </thead>
-          <tbody>
-            {rows.map((m) => (
-              <tr key={m.id}>
-                <td>{m.title}</td>
-                <td>{m.jobStatus?.priority || '—'}</td>
-                <td><StatusBadge status={m.jobStatus?.status || m.digitizationStatus} /></td>
-                <td>{m.jobStatus?.technician || 'Unassigned'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr><th>Manuscript</th><th>Priority</th><th>Job Status</th><th>Technician</th></tr>
+              </thead>
+              <tbody>
+                {rows.map((m) => (
+                  <tr key={m.id}>
+                    <td>{m.title}</td>
+                    <td>{m.jobStatus?.priority || '—'}</td>
+                    <td><StatusBadge status={m.jobStatus?.status || m.digitizationStatus} /></td>
+                    <td>{m.jobStatus?.technician || 'Unassigned'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
       )}
     </div>
   );

@@ -35,27 +35,29 @@ export default function ReservationsOverviewPage() {
       ) : reservations.length === 0 ? (
         <EmptyState title="No reservations yet" />
       ) : (
-        <table className="data-table">
-          <thead>
-            <tr><th>Researcher</th><th>Manuscript</th><th>Date</th><th>Time</th><th>Status</th><th></th></tr>
-          </thead>
-          <tbody>
-            {reservations.map((r) => (
-              <tr key={r.id}>
-                <td>{r.researcherName}</td>
-                <td>{r.manuscriptTitle}</td>
-                <td>{r.slotDate}</td>
-                <td>{r.slotTime}</td>
-                <td><StatusBadge status={r.status} /></td>
-                <td>
-                  {r.status === 'CONFIRMED' && (
-                    <button className="btn btn-danger btn-sm" onClick={() => onCancel(r.id)}>Cancel</button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr><th>Researcher</th><th>Manuscript</th><th>Date</th><th>Time</th><th>Status</th><th></th></tr>
+              </thead>
+              <tbody>
+                {reservations.map((r) => (
+                  <tr key={r.id}>
+                    <td>{r.researcherName}</td>
+                    <td>{r.manuscriptTitle}</td>
+                    <td>{r.slotDate}</td>
+                    <td>{r.slotTime}</td>
+                    <td><StatusBadge status={r.status} /></td>
+                    <td>
+                      {r.status === 'CONFIRMED' && (
+                        <button className="btn btn-danger btn-sm" onClick={() => onCancel(r.id)}>Cancel</button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
       )}
     </div>
   );

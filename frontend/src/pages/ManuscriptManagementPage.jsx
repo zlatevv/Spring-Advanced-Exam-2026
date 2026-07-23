@@ -91,7 +91,7 @@ export default function ManuscriptManagementPage() {
       <section style={{ background: 'var(--parchment-panel)', borderRadius: 4, padding: '1.6rem', marginBottom: '2.2rem' }} className="on-parchment">
         <h3>{editingId ? 'Edit Manuscript' : 'Add Manuscript'}</h3>
         <form onSubmit={onSubmit}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
+          <div className="form-grid">
             <div className="field">
               <label>Title</label>
               <input name="title" required value={form.title} onChange={onChange} />
@@ -140,29 +140,31 @@ export default function ManuscriptManagementPage() {
       {loading ? (
         <Loading />
       ) : (
-        <table className="data-table">
-          <thead>
-            <tr><th>Title</th><th>Visibility</th><th>Digitization</th><th>Actions</th></tr>
-          </thead>
-          <tbody>
-            {manuscripts.map((m) => (
-              <tr key={m.id}>
-                <td>{m.title}</td>
-                <td><StatusBadge status={m.visibility} /></td>
-                <td><StatusBadge status={m.digitizationStatus} /></td>
-                <td style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                  <button className="btn btn-ghost btn-sm" onClick={() => onEdit(m)}>Edit</button>
-                  <button className="btn btn-ghost btn-sm" onClick={() => onToggleVisibility(m)}>
-                    Make {m.visibility === 'PUBLIC' ? 'Restricted' : 'Public'}
-                  </button>
-                  {m.digitizationStatus === 'NOT_STARTED' && (
-                    <button className="btn btn-primary btn-sm" onClick={() => onDigitize(m)}>Request Digitization</button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr><th>Title</th><th>Visibility</th><th>Digitization</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                {manuscripts.map((m) => (
+                  <tr key={m.id}>
+                    <td>{m.title}</td>
+                    <td><StatusBadge status={m.visibility} /></td>
+                    <td><StatusBadge status={m.digitizationStatus} /></td>
+                    <td style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                      <button className="btn btn-ghost btn-sm" onClick={() => onEdit(m)}>Edit</button>
+                      <button className="btn btn-ghost btn-sm" onClick={() => onToggleVisibility(m)}>
+                        Make {m.visibility === 'PUBLIC' ? 'Restricted' : 'Public'}
+                      </button>
+                      {m.digitizationStatus === 'NOT_STARTED' && (
+                        <button className="btn btn-primary btn-sm" onClick={() => onDigitize(m)}>Request Digitization</button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
       )}
     </div>
   );

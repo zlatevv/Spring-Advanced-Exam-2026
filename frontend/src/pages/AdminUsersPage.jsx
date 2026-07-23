@@ -39,24 +39,26 @@ export default function AdminUsersPage() {
       {loading ? (
         <Loading />
       ) : (
-        <table className="data-table">
-          <thead>
-            <tr><th>Name</th><th>Email</th><th>Role</th></tr>
-          </thead>
-          <tbody>
-            {users.map((u) => (
-              <tr key={u.id}>
-                <td>{u.fullName}</td>
-                <td>{u.email}</td>
-                <td>
-                  <select value={u.role} onChange={(e) => onRoleChange(u.id, e.target.value)}>
-                    {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
-                  </select>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr><th>Name</th><th>Email</th><th>Role</th></tr>
+              </thead>
+              <tbody>
+                {users.map((u) => (
+                  <tr key={u.id}>
+                    <td>{u.fullName}</td>
+                    <td>{u.email}</td>
+                    <td>
+                      <select value={u.role} onChange={(e) => onRoleChange(u.id, e.target.value)}>
+                        {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
       )}
     </div>
   );

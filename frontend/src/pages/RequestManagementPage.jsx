@@ -49,29 +49,31 @@ export default function RequestManagementPage() {
       ) : requests.length === 0 ? (
         <EmptyState title="No requests in this view" />
       ) : (
-        <table className="data-table">
-          <thead>
-            <tr><th>Researcher</th><th>Manuscript</th><th>Purpose</th><th>Status</th><th>Decision</th></tr>
-          </thead>
-          <tbody>
-            {requests.map((r) => (
-              <tr key={r.id}>
-                <td>{r.researcherName}</td>
-                <td>{r.manuscriptTitle}</td>
-                <td style={{ maxWidth: 260 }}>{r.purpose}</td>
-                <td><StatusBadge status={r.status} /></td>
-                <td>
-                  {r.status === 'PENDING' && (
-                    <div style={{ display: 'flex', gap: '0.4rem' }}>
-                      <button className="btn btn-primary btn-sm" onClick={() => onDecide(r.id, 'APPROVED')}>Approve</button>
-                      <button className="btn btn-danger btn-sm" onClick={() => onDecide(r.id, 'REJECTED')}>Reject</button>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
+                <tr><th>Researcher</th><th>Manuscript</th><th>Purpose</th><th>Status</th><th>Decision</th></tr>
+              </thead>
+              <tbody>
+                {requests.map((r) => (
+                  <tr key={r.id}>
+                    <td>{r.researcherName}</td>
+                    <td>{r.manuscriptTitle}</td>
+                    <td style={{ maxWidth: 260 }}>{r.purpose}</td>
+                    <td><StatusBadge status={r.status} /></td>
+                    <td>
+                      {r.status === 'PENDING' && (
+                        <div style={{ display: 'flex', gap: '0.4rem' }}>
+                          <button className="btn btn-primary btn-sm" onClick={() => onDecide(r.id, 'APPROVED')}>Approve</button>
+                          <button className="btn btn-danger btn-sm" onClick={() => onDecide(r.id, 'REJECTED')}>Reject</button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
       )}
     </div>
   );
