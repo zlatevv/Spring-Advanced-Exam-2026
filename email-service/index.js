@@ -1,17 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 const app = express();
 app.use(express.json());
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-    },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post('/send-reset-email', async (req, res) => {
     const { email, resetToken } = req.body;
@@ -23,17 +17,18 @@ app.post('/send-reset-email', async (req, res) => {
     const resetLink = `${process.env.FRONTEND_URL || 'http://localhost'}/reset-password?token=${resetToken}`;
 
     try {
-        await transporter.sendMail({
-            from: process.env.GMAIL_USER,
+        await resend.emails.send({
+            from: 'Rare Manuscripts Support <onboarding@resend.dev>',
             to: email,
             subject: 'Reset your RareManuscripts password',
             html: `<p>Click below to reset your password. This link expires in 15 minutes.</p>
                    <a href="${resetLink}">${resetLink}</a>`,
         });
-        res.status(200).json({ message: 'Email sent.' });
+
+        res.status(200).json({ message: 'Email sent successfully.' });
     } catch (err) {
         console.error('Failed to send email:', err);
-        res.status(500).json({ message: 'Failed to send email.' });
+        res.status(500).json({ message: 'Failed to send email.', error: err.message });
     }
 });
 
