@@ -3,6 +3,7 @@ package bg.springadvancedexam.mainapp.context;
 import bg.springadvancedexam.mainapp.security.JwtAuthFilter;
 import bg.springadvancedexam.mainapp.security.OAuth2LoginSuccessHandler;
 import bg.springadvancedexam.mainapp.security.RateLimitingFilter;
+import bg.springadvancedexam.mainapp.security.RestAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final RateLimitingFilter rateLimitingFilter;
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -43,12 +45,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,
                                            AuthenticationProvider authenticationProvider,
-                                            OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler)
+                                           OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler)
             throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex -> ex
+                        .defaultAuthenticationEntryPointFor(
+                                restAuthenticationEntryPoint,
+                                request -> request.getServletPath().startsWith("/api/")
+                        )
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
@@ -109,7 +117,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173", "https://raramanuscripts.netlify.app/"));
+        config.setAllowedOrigins(List.of("http://localhost:5173", "https://raramanuscripts.netlify.app"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
