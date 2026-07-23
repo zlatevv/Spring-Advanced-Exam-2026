@@ -1,9 +1,6 @@
 package bg.springadvancedexam.mainapp.context;
 
-import bg.springadvancedexam.mainapp.security.JwtAuthFilter;
-import bg.springadvancedexam.mainapp.security.OAuth2LoginSuccessHandler;
-import bg.springadvancedexam.mainapp.security.RateLimitingFilter;
-import bg.springadvancedexam.mainapp.security.RestAuthenticationEntryPoint;
+import bg.springadvancedexam.mainapp.security.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +17,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -36,6 +35,10 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final RateLimitingFilter rateLimitingFilter;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    @Bean
+    public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -48,6 +51,12 @@ public class SecurityConfig {
                                            OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler)
             throws Exception {
         http
+                .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(endpoint -> endpoint
+                                .authorizationRequestRepository(authorizationRequestRepository())
+                        )
+                        .successHandler(oAuth2LoginSuccessHandler)
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -95,7 +104,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
-                .oauth2Login(oauth2 -> oauth2.successHandler(oAuth2LoginSuccessHandler))
                 .addFilterBefore(rateLimitingFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
