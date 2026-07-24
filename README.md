@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/logo.png" alt="RareManuscripts Logo" width="180"/>
+  <img src="./docs/logo-transparent.png" alt="RareManuscripts Logo" width="180"/>
 </p>
 
 <h1 align="center">
