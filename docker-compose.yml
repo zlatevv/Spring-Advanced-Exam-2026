@@ -27,7 +27,7 @@ services:
         condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/raremanuscripts_db
-      DB_USERNAME: root
+      DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
@@ -39,7 +39,7 @@ services:
       FRONTEND_URL: ${FRONTEND_URL}
       SPRING_PROFILES_ACTIVE: prod
       EMAIL_SERVICE_URL: ${EMAIL_SERVICE_URL}
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
       SEED_ADMIN_NAME: ${SEED_ADMIN_NAME}
       SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL}
       SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
@@ -66,6 +66,10 @@ services:
       - main-app
     ports:
       - "80:80"
+    environment:
+      VITE_GOOGLE_OAUTH_URL: ${VITE_GOOGLE_OAUTH_URL}
+      VITE_API_URL: ${VITE_API_URL}
+
   email-service:
     build:
       context: ./email-service
@@ -79,8 +83,7 @@ services:
     environment:
       PORT: 3001
       FRONTEND_URL: ${FRONTEND_URL}
-      GMAIL_USER: ${GMAIL_USER}
-      GMAIL_APP_PASSWORD: ${GMAIL_APP_PASSWORD}
+      RESEND_API_KEY: ${RESEND_API_KEY}
 
     restart: unless-stopped
 
