@@ -16,7 +16,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-21-orange" />
-  <img src="https://img.shields.io/badge/Spring%20Boot-3-green" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-4-green" />
   <img src="https://img.shields.io/badge/React-18-blue" />
   <img src="https://img.shields.io/badge/MySQL-8-blue" />
   <img src="https://img.shields.io/badge/Docker-ready-2496ED" />
