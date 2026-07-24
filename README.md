@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">
-  📜 RareManuscripts
+   RareManuscripts
 </h1>
 
 <p align="center">
@@ -31,7 +31,7 @@
   </em>
 </p>
 
-## ✨ Overview
+##  Overview
 
 **RareManuscripts** is a digital preservation portal designed for cultural institutions, archives, and researchers.
 
@@ -50,7 +50,7 @@ The goal is simple:
 
 ---
 
-# 🌐 Live Demo
+# Live Demo
 
 | Service | URL |
 |---|---|
@@ -70,7 +70,7 @@ The goal is simple:
 
 ---
 
-# 🏗️ Architecture
+# Architecture
 
 RareManuscripts follows a **microservice architecture** with independently deployable services.
 
@@ -122,7 +122,7 @@ RareManuscripts follows a **microservice architecture** with independently deplo
 
 ---
 
-# 🧩 Services
+# Services
 
 ## Main Application
 
@@ -202,7 +202,7 @@ Features:
 
 ---
 
-# 👥 User Roles
+# User Roles
 
 | Role | Permissions |
 |---|---|
@@ -212,7 +212,7 @@ Features:
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 ## Backend
 
@@ -251,7 +251,7 @@ Features:
 
 ---
 
-# 🚀 Running Locally
+# Running Locally
 
 ## Requirements
 
@@ -369,7 +369,7 @@ Docker will start:
 
 ---
 
-# 🔑 Default Admin Account
+# Default Admin Account
 
 On first startup an administrator account is created automatically.
 
@@ -389,7 +389,7 @@ Use this account to access:
 
 ---
 
-# 🧪 Testing Locally
+# Testing Locally
 
 After startup verify:
 
@@ -419,7 +419,7 @@ http://localhost:3001
 
 ---
 
-# 🔐 Security
+# Security
 
 Implemented:
 
@@ -432,7 +432,7 @@ Implemented:
 
 ---
 
-# 🤖 AI Integration
+# AI Integration
 
 RareManuscripts includes AI-assisted functionality powered by:
 
@@ -445,7 +445,7 @@ Used for:
 
 ---
 
-# 📦 Database Design
+# Database Design
 
 The system uses separated databases:
 
@@ -471,7 +471,7 @@ Benefits:
 
 ---
 
-# 📌 Project Highlights
+# Project Highlights
 
 ⭐ Microservice architecture  
 ⭐ Independent service deployment  
@@ -484,7 +484,7 @@ Benefits:
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 **Zlatev**
 
