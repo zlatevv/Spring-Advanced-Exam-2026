@@ -33,22 +33,45 @@ public class DataSeeder implements CommandLineRunner {
     @Value("${seed.admin.password}")
     private String adminPassword;
 
+
     @Override
     public void run(String @NonNull ... args) {
-        if (userRepository.count() > 0) {
-            log.info("Users already exist, skipping data seeding.");
-            return;
+
+        seedAdmin();
+        seedManuscripts();
+
+        log.info("Database seeding completed.");
+    }
+
+
+    private void seedAdmin() {
+
+        User admin = userRepository.findByEmail(adminEmail)
+                .orElseGet(User::new);
+
+        admin.setFullName(adminName);
+        admin.setEmail(adminEmail);
+
+        admin.setPassword(passwordEncoder.encode(adminPassword));
+
+        admin.setRole(Role.ADMIN);
+
+        if (admin.getCreatedAt() == null) {
+            admin.setCreatedAt(LocalDateTime.now());
         }
 
-        User admin = User.builder()
-                .fullName(adminName)
-                .email(adminEmail)
-                .password(passwordEncoder.encode(adminPassword))
-                .role(Role.ADMIN)
-                .createdAt(LocalDateTime.now())
-                .build();
-
         userRepository.save(admin);
+
+        log.info("Admin user synchronized.");
+    }
+
+
+    private void seedManuscripts() {
+
+        if (manuscriptRepository.count() > 0) {
+            log.info("Manuscripts already exist, skipping manuscript seeding.");
+            return;
+        }
 
         manuscriptRepository.save(Manuscript.builder()
                 .title("The Voynich Fragment")
@@ -86,6 +109,6 @@ public class DataSeeder implements CommandLineRunner {
                 .createdAt(LocalDateTime.now())
                 .build());
 
-        log.info("Seeded an admin and 3 manuscripts.");
+        log.info("Seeded manuscripts.");
     }
 }
