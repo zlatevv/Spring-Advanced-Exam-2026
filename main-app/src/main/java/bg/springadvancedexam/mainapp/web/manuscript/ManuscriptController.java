@@ -78,4 +78,9 @@ public class ManuscriptController {
     public ResponseEntity<SummaryResponse> getManuscriptSummary(@PathVariable UUID id) {
         return ResponseEntity.ok(manuscriptService.generateSummary(id));
     }
+
+    @DeleteMapping("/{id}/digitize")
+    public ResponseEntity<ManuscriptResponse> cancelDigitization(@PathVariable UUID id) {
+        return ResponseEntity.ok(manuscriptService.cancelDigitization(id));
+    }
 }

@@ -28,4 +28,10 @@ public class JobController {
     public ResponseEntity<DigitizationJobResponse> getStatus(@PathVariable UUID manuscriptId) {
         return ResponseEntity.ok(digitizationJobService.fetchStatus(manuscriptId));
     }
+
+    @DeleteMapping("/manuscript/{manuscriptId}")
+    public ResponseEntity<Void> cancelJob(@PathVariable UUID manuscriptId) {
+        digitizationJobService.cancelJob(manuscriptId);
+        return ResponseEntity.noContent().build();
+    }
 }

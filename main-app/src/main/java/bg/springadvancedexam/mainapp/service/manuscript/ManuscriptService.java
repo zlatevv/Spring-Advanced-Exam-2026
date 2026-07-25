@@ -109,6 +109,24 @@ public class ManuscriptService {
         return digitizationClient.getStatus(manuscriptId);
     }
 
+    @Transactional
+    @CacheEvict(value = "manuscripts", key = "#manuscriptId")
+    public ManuscriptResponse cancelDigitization(UUID manuscriptId) {
+        Manuscript manuscript = manuscriptRepository.findById(manuscriptId)
+                .orElseThrow(() -> new ManuscriptDoesNotExistException("Manuscript not found"));
+
+        if (manuscript.getDigitizationStatus() == DigitizationStatus.NOT_STARTED) {
+            throw new ManuscriptNotEligibleException("No digitization job to cancel.");
+        }
+
+        digitizationClient.cancelJob(manuscriptId);
+
+        manuscript.setDigitizationStatus(DigitizationStatus.NOT_STARTED);
+        Manuscript saved = manuscriptRepository.save(manuscript);
+
+        return ManuscriptMapper.toManuscriptResponse(saved);
+    }
+
     @Cacheable(value = "manuscriptSummaries", key = "#p0")
     public SummaryResponse generateSummary(UUID manuscriptId) {
         Manuscript manuscript = manuscriptRepository.findById(manuscriptId)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   fetchManuscripts, createManuscript, updateManuscript,
-  setManuscriptVisibility, requestDigitization
+  setManuscriptVisibility, requestDigitization, cancelDigitization
 } from '../api/manuscriptApi';
 import { StatusBadge, Loading, ErrorBanner, SuccessBanner, extractErrorMessage } from '../components/Feedback';
 
@@ -77,6 +77,15 @@ export default function ManuscriptManagementPage() {
       await requestDigitization(m.id, 'MEDIUM');
       setManuscripts((prev) => prev.map((x) => (x.id === m.id ? { ...x, digitizationStatus: 'QUEUED' } : x)));
       setSuccess(`Digitization requested for "${m.title}"`);
+    } catch (err) {
+      setError(extractErrorMessage(err));
+    }
+  };
+  const onCancelDigitization = async (m) => {
+    try {
+      await cancelDigitization(m.id);
+      setManuscripts((prev) => prev.map((x) => (x.id === m.id ? { ...x, digitizationStatus: 'NOT_STARTED' } : x)));
+      setSuccess(`Digitization cancelled for "${m.title}".`);
     } catch (err) {
       setError(extractErrorMessage(err));
     }
@@ -157,7 +166,10 @@ export default function ManuscriptManagementPage() {
                         Make {m.visibility === 'PUBLIC' ? 'Restricted' : 'Public'}
                       </button>
                       {m.digitizationStatus === 'NOT_STARTED' && (
-                        <button className="btn btn-primary btn-sm" onClick={() => onDigitize(m)}>Request Digitization</button>
+                          <button className="btn btn-primary btn-sm" onClick={() => onDigitize(m)}>Request Digitization</button>
+                      )}
+                      {m.digitizationStatus !== 'NOT_STARTED' && m.digitizationStatus !== 'COMPLETE' && (
+                          <button className="btn btn-danger btn-sm" onClick={() => onCancelDigitization(m)}>Cancel Digitization</button>
                       )}
                     </td>
                   </tr>

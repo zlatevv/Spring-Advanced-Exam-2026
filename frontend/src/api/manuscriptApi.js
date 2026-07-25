@@ -22,3 +22,6 @@ export const fetchDigitizationStatus = (id) =>
 
 export const fetchManuscriptSummary = (id) =>
     apiClient.get(`/manuscripts/${id}/summary`).then((r) => r.data);
+
+export const cancelDigitization = (id) =>
+    apiClient.delete(`/manuscripts/${id}/digitize`).then((r) => r.data);

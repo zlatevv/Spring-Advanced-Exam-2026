@@ -15,6 +15,12 @@ public class GlobalExceptionHandler {
                 .body(Map.of("message", ex.getMessage()));
     }
 
+    @ExceptionHandler(JobAlreadyCompleteException.class)
+    public ResponseEntity<Map<String, String>> handleJobAlreadyComplete(JobAlreadyCompleteException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("message", ex.getMessage()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleUnexpected(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
