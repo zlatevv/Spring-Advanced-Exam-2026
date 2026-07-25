@@ -68,9 +68,7 @@ The goal is simple:
 >
 > If the application appears slow initially, please wait and retry.
 >
-> Personnally I wouldn't recommend it for exam evaluation (since free online services are notoriously buggy), good to know it's there tho, best to build it
->
-> locally and just test via the Frontend UX or Postman (whatever suits the examinors best 🙂)
+> Personnally I wouldn't recommend it for exam evaluation (since free online services are notoriously buggy), good to know it's there tho, best to build it locally and just test via the Frontend UX or Postman (whatever suits the examinors best 🙂)
 
 ---
 
