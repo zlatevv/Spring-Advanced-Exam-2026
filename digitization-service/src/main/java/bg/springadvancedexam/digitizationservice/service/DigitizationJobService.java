@@ -21,6 +21,10 @@ public class DigitizationJobService {
 
     @Transactional
     public void createJob(UUID manuscriptId, Priority priority) {
+        if (digitizationJobRepository.existsByManuscriptId(manuscriptId)) {
+            throw new IllegalStateException("Digitization job already exists.");
+        }
+
         DigitizationJob job = DigitizationMapper.toDigitizationJob(manuscriptId, priority);
         digitizationJobRepository.save(job);
     }

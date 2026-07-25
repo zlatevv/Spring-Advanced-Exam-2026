@@ -12,4 +12,6 @@ public interface DigitizationJobRepository extends JpaRepository<DigitizationJob
     Optional<DigitizationJob> findByManuscriptId(UUID manuscriptId);
 
     List<DigitizationJob> findByStatusNot(JobStatus jobStatus);
+
+    boolean existsByManuscriptId(UUID manuscriptId);
 }

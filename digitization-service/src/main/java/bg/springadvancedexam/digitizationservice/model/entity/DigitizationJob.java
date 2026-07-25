@@ -22,7 +22,7 @@ public class DigitizationJob {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private UUID manuscriptId;
 
     @Enumerated(EnumType.STRING)
