@@ -67,6 +67,10 @@ The goal is simple:
 > The first request can take **1–2 minutes** while services wake up.
 >
 > If the application appears slow initially, please wait and retry.
+>
+> Personnally I wouldn't recommend it for exam evaluation (since free online services are notoriously buggy), good to know it's there tho, best to build it
+>
+> locally and just test via the Frontend UX or Postman (whatever suits the examinors best 🙂)
 
 ---
 
