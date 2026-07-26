@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { fetchManuscripts, fetchDigitizationStatus } from '../api/manuscriptApi';
-import { StatusBadge, Loading, EmptyState, ErrorBanner, extractErrorMessage } from '../components/Feedback';
+import {useEffect, useState} from 'react';
+import {fetchDigitizationStatus, fetchManuscripts} from '../api/manuscriptApi';
+import {EmptyState, ErrorBanner, extractErrorMessage, Loading, StatusBadge} from '../components/Feedback';
 
 export default function DigitizationDashboardPage() {
   const [rows, setRows] = useState([]);

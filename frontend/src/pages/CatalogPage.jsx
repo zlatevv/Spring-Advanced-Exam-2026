@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { fetchManuscripts } from '../api/manuscriptApi';
+import {useEffect, useState} from 'react';
+import {fetchManuscripts} from '../api/manuscriptApi';
 import ManuscriptCard from '../components/ManuscriptCard';
-import { Loading, EmptyState, extractErrorMessage, ErrorBanner } from '../components/Feedback';
+import {EmptyState, ErrorBanner, extractErrorMessage, Loading} from '../components/Feedback';
 
 export default function CatalogPage() {
   const [manuscripts, setManuscripts] = useState([]);

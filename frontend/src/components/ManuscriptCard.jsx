@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { StatusBadge } from './Feedback';
+import {Link} from 'react-router-dom';
+import {StatusBadge} from './Feedback';
 
 export default function ManuscriptCard({ manuscript }) {
   return (

@@ -1,17 +1,16 @@
 package bg.springadvancedexam.digitizationservice.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import bg.springadvancedexam.digitizationservice.model.entity.DigitizationJob;
 import bg.springadvancedexam.digitizationservice.model.enums.JobStatus;
 import bg.springadvancedexam.digitizationservice.model.enums.Priority;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
 import java.util.List;
 import java.util.UUID;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 class DigitizationJobRepositoryTest {

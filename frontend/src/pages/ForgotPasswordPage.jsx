@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import ParchmentPanel from '../components/ParchmentPanel';
-import { ErrorBanner } from '../components/Feedback';
-import { forgotPassword } from '../api/authApi';
+import {ErrorBanner} from '../components/Feedback';
+import {forgotPassword} from '../api/authApi';
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState('');

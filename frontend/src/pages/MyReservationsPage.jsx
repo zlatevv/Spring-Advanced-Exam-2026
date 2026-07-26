@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchMyReservations, cancelReservation } from '../api/reservationApi';
-import { StatusBadge, Loading, EmptyState, ErrorBanner, extractErrorMessage } from '../components/Feedback';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {cancelReservation, fetchMyReservations} from '../api/reservationApi';
+import {EmptyState, ErrorBanner, extractErrorMessage, Loading, StatusBadge} from '../components/Feedback';
 
 export default function MyReservationsPage() {
   const [reservations, setReservations] = useState([]);

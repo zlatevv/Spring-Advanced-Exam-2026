@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
 import ParchmentPanel from '../components/ParchmentPanel';
-import { ErrorBanner, SuccessBanner, extractErrorMessage } from '../components/Feedback';
+import {ErrorBanner, extractErrorMessage, SuccessBanner} from '../components/Feedback';
 
 export default function RegisterPage() {
   const { register } = useAuth();

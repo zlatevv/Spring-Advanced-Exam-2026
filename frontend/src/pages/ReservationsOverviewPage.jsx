@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { fetchReservations, cancelReservation } from '../api/reservationApi';
-import { StatusBadge, Loading, EmptyState, ErrorBanner, extractErrorMessage } from '../components/Feedback';
+import {useEffect, useState} from 'react';
+import {cancelReservation, fetchReservations} from '../api/reservationApi';
+import {EmptyState, ErrorBanner, extractErrorMessage, Loading, StatusBadge} from '../components/Feedback';
 
 export default function ReservationsOverviewPage() {
   const [reservations, setReservations] = useState([]);

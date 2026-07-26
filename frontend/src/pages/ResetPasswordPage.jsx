@@ -1,8 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useState} from 'react';
 import ParchmentPanel from '../components/ParchmentPanel';
-import { ErrorBanner } from '../components/Feedback';
-import { resetPassword } from '../api/authApi';
+import {ErrorBanner} from '../components/Feedback';
+import {resetPassword} from '../api/authApi';
 
 export default function ResetPasswordPage() {
     const location = useLocation();

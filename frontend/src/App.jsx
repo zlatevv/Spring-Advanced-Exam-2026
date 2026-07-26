@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Navbar from './components/Navbar';
-import { RequireAuth, RequireRole } from './components/RouteGuards';
+import {RequireAuth, RequireRole} from './components/RouteGuards';
 
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';

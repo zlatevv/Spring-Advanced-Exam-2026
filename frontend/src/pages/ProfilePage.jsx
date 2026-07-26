@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { fetchMyProfile, updateMyProfile } from '../api/userApi';
-import { Loading, ErrorBanner, SuccessBanner, extractErrorMessage } from '../components/Feedback';
+import {useEffect, useState} from 'react';
+import {fetchMyProfile, updateMyProfile} from '../api/userApi';
+import {ErrorBanner, extractErrorMessage, Loading, SuccessBanner} from '../components/Feedback';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);

@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import {
-  fetchManuscripts, createManuscript, updateManuscript,
-  setManuscriptVisibility, requestDigitization, cancelDigitization
+    cancelDigitization,
+    createManuscript,
+    fetchManuscripts,
+    requestDigitization,
+    setManuscriptVisibility,
+    updateManuscript
 } from '../api/manuscriptApi';
-import { StatusBadge, Loading, ErrorBanner, SuccessBanner, extractErrorMessage } from '../components/Feedback';
+import {ErrorBanner, extractErrorMessage, Loading, StatusBadge, SuccessBanner} from '../components/Feedback';
 
 const emptyForm = {
   title: '', author: '', era: 'MEDIEVAL', originRegion: '', description: '', conservationStatus: 'STABLE'

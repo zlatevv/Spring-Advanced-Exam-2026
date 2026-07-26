@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { fetchAccessRequests, decideAccessRequest } from '../api/requestApi';
-import { StatusBadge, Loading, EmptyState, ErrorBanner, extractErrorMessage } from '../components/Feedback';
+import {useEffect, useState} from 'react';
+import {decideAccessRequest, fetchAccessRequests} from '../api/requestApi';
+import {EmptyState, ErrorBanner, extractErrorMessage, Loading, StatusBadge} from '../components/Feedback';
 
 export default function RequestManagementPage() {
   const [requests, setRequests] = useState([]);

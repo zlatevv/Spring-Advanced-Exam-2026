@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import {fetchManuscript, fetchManuscriptSummary} from '../api/manuscriptApi';
-import { submitAccessRequest } from '../api/requestApi';
-import { fetchNotes, addNote, deleteNote } from '../api/noteApi';
-import { useAuth } from '../context/AuthContext';
-import { StatusBadge, Loading, ErrorBanner, SuccessBanner, extractErrorMessage } from '../components/Feedback';
+import {submitAccessRequest} from '../api/requestApi';
+import {addNote, deleteNote, fetchNotes} from '../api/noteApi';
+import {useAuth} from '../context/AuthContext';
+import {ErrorBanner, extractErrorMessage, Loading, StatusBadge, SuccessBanner} from '../components/Feedback';
 
 export default function ManuscriptDetailPage() {
   const { id } = useParams();

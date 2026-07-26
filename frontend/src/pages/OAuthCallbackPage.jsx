@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { fetchCurrentUser } from '../api/authApi';
-import { Loading, ErrorBanner } from '../components/Feedback';
+import {useEffect, useState} from 'react';
+import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
+import {fetchCurrentUser} from '../api/authApi';
+import {ErrorBanner, Loading} from '../components/Feedback';
 
 export default function OAuthCallbackPage() {
     const [searchParams] = useSearchParams();

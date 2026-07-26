@@ -1,7 +1,7 @@
 package bg.springadvancedexam.mainapp.mapper.reservation;
 
-import bg.springadvancedexam.mainapp.dto.reservation.ReservationResponse;
 import bg.springadvancedexam.mainapp.dto.reservation.ReservationCreateRequest;
+import bg.springadvancedexam.mainapp.dto.reservation.ReservationResponse;
 import bg.springadvancedexam.mainapp.model.entity.request.AccessRequest;
 import bg.springadvancedexam.mainapp.model.entity.reservation.Reservation;
 import bg.springadvancedexam.mainapp.model.enums.ReservationStatus;

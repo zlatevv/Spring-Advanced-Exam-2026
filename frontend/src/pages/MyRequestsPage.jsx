@@ -1,8 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchMyAccessRequests } from '../api/requestApi';
-import { createReservation } from '../api/reservationApi';
-import { StatusBadge, Loading, EmptyState, ErrorBanner, SuccessBanner, extractErrorMessage } from '../components/Feedback';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {fetchMyAccessRequests} from '../api/requestApi';
+import {createReservation} from '../api/reservationApi';
+import {
+    EmptyState,
+    ErrorBanner,
+    extractErrorMessage,
+    Loading,
+    StatusBadge,
+    SuccessBanner
+} from '../components/Feedback';
 
 export default function MyRequestsPage() {
   const [requests, setRequests] = useState([]);

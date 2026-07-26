@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import {useState} from 'react';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
 import ParchmentPanel from '../components/ParchmentPanel';
-import { ErrorBanner, extractErrorMessage } from '../components/Feedback';
+import {ErrorBanner, extractErrorMessage} from '../components/Feedback';
 
 export default function LoginPage() {
   const { login } = useAuth();

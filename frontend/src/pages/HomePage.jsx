@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchManuscripts } from '../api/manuscriptApi';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {fetchManuscripts} from '../api/manuscriptApi';
 import ManuscriptCard from '../components/ManuscriptCard';
-import { Loading } from '../components/Feedback';
+import {Loading} from '../components/Feedback';
 
 export default function HomePage() {
   const [featured, setFeatured] = useState([]);

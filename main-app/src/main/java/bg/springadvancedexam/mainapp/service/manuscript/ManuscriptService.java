@@ -12,18 +12,21 @@ import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptDoesNotExist
 import bg.springadvancedexam.mainapp.exception.manuscript.ManuscriptNotEligibleException;
 import bg.springadvancedexam.mainapp.mapper.manuscript.ManuscriptMapper;
 import bg.springadvancedexam.mainapp.model.entity.manuscript.Manuscript;
-import bg.springadvancedexam.mainapp.model.enums.*;
+import bg.springadvancedexam.mainapp.model.enums.DigitizationStatus;
+import bg.springadvancedexam.mainapp.model.enums.Era;
+import bg.springadvancedexam.mainapp.model.enums.Priority;
+import bg.springadvancedexam.mainapp.model.enums.Visibility;
 import bg.springadvancedexam.mainapp.repository.manuscript.ManuscriptRepository;
 import bg.springadvancedexam.mainapp.service.ai.ManuscriptSummaryService;
-import org.springframework.cache.annotation.Cacheable;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
-import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 @Service
