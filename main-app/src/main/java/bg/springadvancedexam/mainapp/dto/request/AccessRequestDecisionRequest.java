@@ -9,4 +9,5 @@ public record AccessRequestDecisionRequest(
         UUID requestId,
         @NotNull(message = "Decision is required")
         RequestStatus decision
-) {}
+) {
+}

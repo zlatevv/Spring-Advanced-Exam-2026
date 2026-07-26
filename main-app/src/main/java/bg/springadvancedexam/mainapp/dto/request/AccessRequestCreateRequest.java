@@ -13,4 +13,5 @@ public record AccessRequestCreateRequest(
         @NotBlank(message = "Purpose is required")
         @Size(min = 10, message = "Purpose must be at least 10 characters")
         String purpose
-) {}
+) {
+}

@@ -41,7 +41,7 @@ public class UserServiceTest {
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-            UserResponse result = userService.updateUserRole(userId, Role.CURATOR);
+        UserResponse result = userService.updateUserRole(userId, Role.CURATOR);
 
         assertThat(result.role()).isEqualTo(Role.CURATOR);
         verify(userRepository).save(user);

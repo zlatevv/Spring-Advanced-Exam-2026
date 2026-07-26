@@ -17,4 +17,5 @@ public record ManuscriptResponse(
         ConservationStatus conservationStatus,
         Visibility visibility,
         DigitizationStatus digitizationStatus
-) {}
+) {
+}

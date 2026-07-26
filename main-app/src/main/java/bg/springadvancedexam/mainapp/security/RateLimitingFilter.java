@@ -18,10 +18,9 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class RateLimitingFilter extends OncePerRequestFilter {
 
-    private final StringRedisTemplate redisTemplate;
-
     private static final int MAX_ATTEMPTS = 5;
     private static final Duration WINDOW = Duration.ofMinutes(1);
+    private final StringRedisTemplate redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response,

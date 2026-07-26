@@ -14,4 +14,5 @@ public record DigitizationJobResponse(
         String technician,
         LocalDateTime requestedAt,
         LocalDateTime completedAt
-) {}
+) {
+}

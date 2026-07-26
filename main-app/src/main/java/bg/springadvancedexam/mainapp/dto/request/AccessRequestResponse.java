@@ -13,4 +13,5 @@ public record AccessRequestResponse(
         String purpose,
         RequestStatus status,
         LocalDateTime requestedDate
-) {}
+) {
+}

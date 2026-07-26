@@ -7,4 +7,5 @@ import java.util.UUID;
 public record CreateJobRequest(
         UUID manuscriptId,
         Priority priority
-) {}
+) {
+}

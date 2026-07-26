@@ -28,7 +28,8 @@ public class JobProgressionScheduler {
                     job.setStatus(JobStatus.COMPLETE);
                     job.setCompletedAt(LocalDateTime.now());
                 }
-                default -> {}
+                default -> {
+                }
             }
             jobRepository.save(job);
         }

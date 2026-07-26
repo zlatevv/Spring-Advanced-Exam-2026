@@ -12,4 +12,5 @@ public record UpdateProfileRequest(
         String email,
 
         String institution
-) {}
+) {
+}

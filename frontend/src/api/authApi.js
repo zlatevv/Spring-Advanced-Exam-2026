@@ -7,7 +7,7 @@ export const login = (payload) => apiClient.post('/auth/login', payload).then((r
 export const fetchCurrentUser = () => apiClient.get('/auth/me').then((r) => r.data);
 
 export const forgotPassword = (email) =>
-    apiClient.post('/auth/forgot-password', { email }).then((r) => r.data);
+    apiClient.post('/auth/forgot-password', {email}).then((r) => r.data);
 
 export const resetPassword = (token, newPassword) =>
     apiClient.post('/auth/reset-password', {

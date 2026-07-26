@@ -52,10 +52,10 @@ export default function ResetPasswordPage() {
                 padding: '2rem',
             }}
         >
-            <ParchmentPanel style={{ width: '100%', maxWidth: 420 }}>
+            <ParchmentPanel style={{width: '100%', maxWidth: 420}}>
                 <h2>Reset Password</h2>
 
-                <ErrorBanner message={error} />
+                <ErrorBanner message={error}/>
 
                 <form onSubmit={onSubmit}>
                     <div className="field">
@@ -71,7 +71,7 @@ export default function ResetPasswordPage() {
 
                     <button
                         className="btn btn-primary"
-                        style={{ width: '100%' }}
+                        style={{width: '100%'}}
                         disabled={submitting}
                     >
                         {submitting

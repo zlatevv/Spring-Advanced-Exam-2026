@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class UserMapper {
     public static User toUserEntity(RegisterRequest registerRequest, String normalizedEmail) {
-        if  (registerRequest == null) {
+        if (registerRequest == null) {
             return null;
         }
         return User.builder()
@@ -28,6 +28,7 @@ public class UserMapper {
                 user.getEmail(),
                 user.getRole());
     }
+
     public static ProfileResponse toProfileResponse(User user) {
         return new ProfileResponse(
                 user.getFullName(),

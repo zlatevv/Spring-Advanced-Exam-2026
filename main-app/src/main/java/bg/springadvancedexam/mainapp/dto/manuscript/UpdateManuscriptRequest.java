@@ -11,4 +11,5 @@ public record UpdateManuscriptRequest(
         String description,
         @NotNull(message = "Conservation status is required")
         ConservationStatus conservationStatus
-) {}
+) {
+}

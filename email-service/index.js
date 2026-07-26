@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { Resend } = require('resend');
+const {Resend} = require('resend');
 
 const app = express();
 app.use(express.json());
@@ -8,10 +8,10 @@ app.use(express.json());
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post('/send-reset-email', async (req, res) => {
-    const { email, resetToken } = req.body;
+    const {email, resetToken} = req.body;
 
     if (!email || !resetToken) {
-        return res.status(400).json({ message: 'email and resetToken are required.' });
+        return res.status(400).json({message: 'email and resetToken are required.'});
     }
 
     const resetLink = `${process.env.FRONTEND_URL || 'http://localhost'}/reset-password?token=${resetToken}`;
@@ -25,10 +25,10 @@ app.post('/send-reset-email', async (req, res) => {
                    <a href="${resetLink}">${resetLink}</a>`,
         });
 
-        res.status(200).json({ message: 'Email sent successfully.' });
+        res.status(200).json({message: 'Email sent successfully.'});
     } catch (err) {
         console.error('Failed to send email:', err);
-        res.status(500).json({ message: 'Failed to send email.', error: err.message });
+        res.status(500).json({message: 'Failed to send email.', error: err.message});
     }
 });
 

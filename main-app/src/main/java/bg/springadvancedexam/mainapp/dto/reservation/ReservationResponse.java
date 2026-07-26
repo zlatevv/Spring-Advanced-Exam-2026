@@ -14,4 +14,5 @@ public record ReservationResponse(
         LocalDate slotDate,
         LocalTime slotTime,
         ReservationStatus status
-) {}
+) {
+}

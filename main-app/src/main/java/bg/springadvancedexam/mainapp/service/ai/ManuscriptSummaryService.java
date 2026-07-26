@@ -19,7 +19,7 @@ public class ManuscriptSummaryService {
                 Write a concise, 2-3 sentence summary explaining what this manuscript
                 is and why a researcher might find it worth studying. Do not invent
                 facts beyond what's given.
-
+                
                 Title: %s
                 Author: %s
                 Era: %s

@@ -3,7 +3,7 @@ import * as authApi from '../api/authApi';
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
+export function AuthProvider({children}) {
     const [user, setUser] = useState(() => {
         const raw = localStorage.getItem('rm_user');
         if (!raw || raw === 'undefined') return null;
@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
     const [initializing] = useState(false);
 
     const login = useCallback(async (email, password) => {
-        const data = await authApi.login({ email, password });
+        const data = await authApi.login({email, password});
 
         localStorage.setItem('rm_token', data.token);
         localStorage.setItem('rm_user', JSON.stringify(data.user));
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     const register = useCallback(async (fullName, email, password) => {
-        await authApi.register({ fullName, email, password });
+        await authApi.register({fullName, email, password});
     }, [])
 
     const logout = useCallback(() => {
@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider
-            value={{ user, initializing, login, register, logout, hasRole, isAuthenticated: !!user, setUserFromToken}}
+            value={{user, initializing, login, register, logout, hasRole, isAuthenticated: !!user, setUserFromToken}}
         >
             {children}
         </AuthContext.Provider>
@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
 
 
 export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
-  return ctx;
+    const ctx = useContext(AuthContext);
+    if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+    return ctx;
 }

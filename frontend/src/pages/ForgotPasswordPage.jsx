@@ -39,10 +39,10 @@ export default function ForgotPasswordPage() {
                 padding: '2rem',
             }}
         >
-            <ParchmentPanel style={{ width: '100%', maxWidth: 420 }}>
+            <ParchmentPanel style={{width: '100%', maxWidth: 420}}>
                 <h2>Forgot Password</h2>
 
-                <ErrorBanner message={error} />
+                <ErrorBanner message={error}/>
 
                 {success ? (
                     <p>
@@ -63,7 +63,7 @@ export default function ForgotPasswordPage() {
 
                         <button
                             className="btn btn-primary"
-                            style={{ width: '100%' }}
+                            style={{width: '100%'}}
                             disabled={submitting}
                         >
                             {submitting

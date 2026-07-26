@@ -13,4 +13,5 @@ public record JobStatusResponse(
         String technician,
         LocalDateTime requestedAt,
         LocalDateTime completedAt
-) {}
+) {
+}

@@ -17,4 +17,5 @@ public record ReservationCreateRequest(
 
         @NotNull(message = "Slot time is required")
         LocalTime slotTime
-) {}
+) {
+}

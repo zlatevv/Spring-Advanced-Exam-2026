@@ -7,7 +7,7 @@ import {ErrorBanner, Loading} from '../components/Feedback';
 export default function OAuthCallbackPage() {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const { setUserFromToken } = useAuth();
+    const {setUserFromToken} = useAuth();
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export default function OAuthCallbackPage() {
             .then((user) => {
                 localStorage.setItem('rm_user', JSON.stringify(user));
                 setUserFromToken(user);
-                navigate('/catalog', { replace: true });
+                navigate('/catalog', {replace: true});
             })
             .catch(() => {
                 setError('Could not complete sign-in. Please try again.');
@@ -33,15 +33,15 @@ export default function OAuthCallbackPage() {
 
     if (error) {
         return (
-            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ErrorBanner message={error} />
+            <div style={{minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <ErrorBanner message={error}/>
             </div>
         );
     }
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Loading label="Completing sign-in…" />
+        <div style={{minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Loading label="Completing sign-in…"/>
         </div>
     );
 }

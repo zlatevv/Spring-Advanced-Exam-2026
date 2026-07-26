@@ -31,7 +31,7 @@
   </em>
 </p>
 
-##  Overview
+## Overview
 
 **RareManuscripts** is a digital preservation portal designed for cultural institutions, archives, and researchers.
 
@@ -52,13 +52,13 @@ The goal is simple:
 
 # Live Demo
 
-| Service | URL |
-|---|---|
-| Frontend | `raramanuscripts.netlify.app` |
-| Main API | `https://spring-advanced-exam-2026-2.onrender.com` |
+| Service              | URL                                                |
+|----------------------|----------------------------------------------------|
+| Frontend             | `raramanuscripts.netlify.app`                      |
+| Main API             | `https://spring-advanced-exam-2026-2.onrender.com` |
 | Digitization Service | `https://spring-advanced-exam-2026-1.onrender.com` |
-| Email Service | `https://spring-advanced-exam-2026.onrender.com` |
-| Database | MySQL on Aiven |
+| Email Service        | `https://spring-advanced-exam-2026.onrender.com`   |
+| Database             | MySQL on Aiven                                     |
 
 > ⚠️ **Note for exam evaluation**
 >
@@ -204,11 +204,11 @@ Features:
 
 # User Roles
 
-| Role | Permissions |
-|---|---|
-| 🔎 Researcher | Browse manuscripts, request access, create notes, reserve reading slots |
-| 🏛️ Curator | Manage manuscripts, approve requests, manage reservations, start digitization |
-| 🛡️ Admin | All permissions + user role management |
+| Role          | Permissions                                                                   |
+|---------------|-------------------------------------------------------------------------------|
+| 🔎 Researcher | Browse manuscripts, request access, create notes, reserve reading slots       |
+| 🏛️ Curator    | Manage manuscripts, approve requests, manage reservations, start digitization |
+| 🛡️ Admin      | All permissions + user role management                                        |
 
 ---
 
@@ -358,14 +358,14 @@ docker compose up --build
 
 Docker will start:
 
-| Service | Port |
-|---|---:|
-| Frontend | `80` |
-| Main API | `8080` |
+| Service              |   Port |
+|----------------------|-------:|
+| Frontend             |   `80` |
+| Main API             | `8080` |
 | Digitization Service | `8081` |
-| Email Service | `3001` |
-| Redis | `6379` |
-| MySQL | `3306` |
+| Email Service        | `3001` |
+| Redis                | `6379` |
+| MySQL                | `3306` |
 
 ---
 
@@ -428,7 +428,7 @@ Implemented:
 ✅ Role-based authorization  
 ✅ Protected API endpoints  
 ✅ Secure service communication  
-✅ Separate databases per service  
+✅ Separate databases per service
 
 ---
 
@@ -480,7 +480,7 @@ Benefits:
 ⭐ Redis caching  
 ⭐ AI-assisted functionality  
 ⭐ Dockerized development environment  
-⭐ Cloud deployment ready  
+⭐ Cloud deployment ready
 
 ---
 
