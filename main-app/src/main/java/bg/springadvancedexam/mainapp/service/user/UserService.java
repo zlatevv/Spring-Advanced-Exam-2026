@@ -16,8 +16,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -61,7 +63,7 @@ public class UserService {
         return userRepository.findAll()
                 .stream()
                 .map(UserMapper::toUserResponse)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Transactional

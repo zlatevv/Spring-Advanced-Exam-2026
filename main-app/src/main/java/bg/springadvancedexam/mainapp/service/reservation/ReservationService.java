@@ -4,6 +4,7 @@ import bg.springadvancedexam.mainapp.dto.reservation.ReservationCreateRequest;
 import bg.springadvancedexam.mainapp.dto.reservation.ReservationResponse;
 import bg.springadvancedexam.mainapp.exception.request.RequestNotApprovedException;
 import bg.springadvancedexam.mainapp.exception.request.RequestNotFoundException;
+import bg.springadvancedexam.mainapp.exception.reservation.InvalidReservationTimeException;
 import bg.springadvancedexam.mainapp.exception.reservation.ReservationAccessException;
 import bg.springadvancedexam.mainapp.exception.reservation.ReservationNotFoundException;
 import bg.springadvancedexam.mainapp.mapper.reservation.ReservationMapper;
@@ -18,18 +19,32 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
+    private static final ZoneId RESERVATION_ZONE = ZoneId.of("Europe/Sofia");
 
     private final ReservationRepository reservationRepository;
     private final AccessRequestRepository accessRequestRepository;
 
     @Transactional
     public ReservationResponse createReservation(ReservationCreateRequest request, UUID requesterId) {
+        LocalDateTime reservationDateTime = LocalDateTime.of(
+                request.slotDate(),
+                request.slotTime()
+        );
+
+        LocalDateTime now = LocalDateTime.now(RESERVATION_ZONE);
+
+        if (!reservationDateTime.isAfter(now)) {
+            throw new InvalidReservationTimeException("Reservation time must be in the future.");
+        }
+
         AccessRequest accessRequest = accessRequestRepository.findById(request.accessRequestId())
                 .orElseThrow(() -> new RequestNotFoundException("Access request not found!"));
 

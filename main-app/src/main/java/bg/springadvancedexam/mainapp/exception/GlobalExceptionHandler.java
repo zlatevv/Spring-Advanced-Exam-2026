@@ -7,6 +7,7 @@ import bg.springadvancedexam.mainapp.exception.note.NoteDoesNotExistException;
 import bg.springadvancedexam.mainapp.exception.request.InvalidRequestDecisionException;
 import bg.springadvancedexam.mainapp.exception.request.RequestAlreadyDecidedException;
 import bg.springadvancedexam.mainapp.exception.request.RequestNotFoundException;
+import bg.springadvancedexam.mainapp.exception.reservation.InvalidReservationTimeException;
 import bg.springadvancedexam.mainapp.exception.reservation.ReservationAccessException;
 import bg.springadvancedexam.mainapp.exception.reservation.ReservationNotFoundException;
 import bg.springadvancedexam.mainapp.exception.user.EmailExistsException;
@@ -96,5 +97,9 @@ public class GlobalExceptionHandler {
                 "error",
                 "OpenAI quota exceeded. Check billing."
         );
+    }
+    @ExceptionHandler(InvalidReservationTimeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidReservationTime(InvalidReservationTimeException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ex.getMessage()));
     }
 }
